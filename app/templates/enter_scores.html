@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Scores</h1>
+<form action="/" method="post" novalidate>
+    {{ league.hidden_tag() }}
+    <div>
+        {% for player in league.players %}
+            {% for error in player.errors %}
+                <span style="color: red;">[{{ player.player_name.data }} - {{ error }}]</span>
+            {% endfor %}
+        {% endfor %}
+        <table>
+            <thead>
+                <tr>
+                    <th class="absorbing-column"> Name</th>
+                    {% for n in range(1, 19) %}
+                    <th> {{n}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in league.players %}
+                <tr>
+                    {{ player.hidden_tag() }}
+                    <td class="extend">{{ player.player_name }}</td>
+                    <td class="shrink">{{ player.hole1 }}</td>
+                    <td class="shrink">{{ player.hole2 }}</td>
+                    <td class="shrink">{{ player.hole3 }}</td>
+                    <td class="shrink">{{ player.hole4 }}</td>
+                    <td class="shrink">{{ player.hole5 }}</td>
+                    <td class="shrink">{{ player.hole6 }}</td>
+                    <td class="shrink">{{ player.hole7 }}</td>
+                    <td class="shrink">{{ player.hole8 }}</td>
+                    <td class="shrink">{{ player.hole9 }}</td>
+                    <td class="shrink">{{ player.hole10 }}</td>
+                    <td class="shrink">{{ player.hole11 }}</td>
+                    <td class="shrink">{{ player.hole12 }}</td>
+                    <td class="shrink">{{ player.hole13 }}</td>
+                    <td class="shrink">{{ player.hole14 }}</td>
+                    <td class="shrink">{{ player.hole15 }}</td>
+                    <td class="shrink">{{ player.hole16 }}</td>
+                    <td class="shrink">{{ player.hole17 }}</td>
+                    <td class="shrink">{{ player.hole18 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="content"><p>{{ league.submit() }}</p></div>
+</form>
+{% endblock %}

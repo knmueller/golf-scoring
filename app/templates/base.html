@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+      <title>MotoCana Finals</title>
+        <link rel="stylesheet" href="/app/static/styles.css" />
+
+        <style>
+            div#loading {
+                width: 35px;
+                height: 35px;
+                display: none;
+                background: url(/static/loadingimage.gif) no-repeat;
+                cursor: wait;
+            }
+
+            table input {
+                width:100%;
+                table-layout:auto
+            }
+            td {
+                padding: 0 5px 0 0;
+                margin: 0 5px 0 0;
+                border-right: 2px solid
+            }
+            table td.shrink {
+                white-space:nowrap
+            }
+
+        </style>
+    </head>
+    <body onload="runOnLoad()">
+        <div>Scoring: <a href="/">Home</a> <a href="/scoring">Results</a></div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+        <div id="loading"></div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">// <![CDATA[
+            function loading(){
+                $("#loading").show();
+                $("#content").hide();
+            }
+    // ]]></script>
+
+    {% block extra_scripts %}{% endblock %}
+</html>

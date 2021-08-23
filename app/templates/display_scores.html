@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Results</h1>
+{{ front }}
+{{ back }}
+{{ total }}
+{{ team }}
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        function runOnLoad() {
+          var front_table = document.getElementById("front-nine").createCaption();
+          front_table.innerHTML = "<b>Front Nine</b>";
+          var back_table = document.getElementById("back-nine").createCaption();
+          back_table.innerHTML = "<b>Back Nine</b>";
+          var total_table = document.getElementById("total-net").createCaption();
+          total_table.innerHTML = "<b>Total Net</b>";
+          var team_table = document.getElementById("team-net").createCaption();
+          team_table.innerHTML = "<b>Team Net</b>";
+        }
+    </script>
+{% endblock %}
