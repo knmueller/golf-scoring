@@ -45,6 +45,8 @@ class TeamNetTable(Table):
 
 class TeamNetScore(NetScore):
     def __init__(self, name, player_one_net, player_two_net):
-        NetScore.__init__(self, name, player_one_net + player_two_net)
-        self.player_one_net = player_one_net
-        self.player_two_net = player_two_net
+        p1_net = player_one_net if player_one_net is not None else 0
+        p2_net = player_two_net if player_two_net is not None else 0
+        NetScore.__init__(self, name, p1_net + p2_net)
+        self.player_one_net = p1_net
+        self.player_two_net = p2_net
