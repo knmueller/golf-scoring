@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Help</h1>
+    <h3>Entering Scores</h3>
+        <div>
+            To enter scores for you and your partner, go to the <a href="/">Home</a> page and enter your scores as they
+            happen. Once you enter a score for a hole or holes, you can click the Submit button on that page to submit
+            your scores. Your scores will be saved and you will see them every time you visit the Home page.
+        </div>
+    <h3>Viewing Results</h3>
+        <div>
+            To view results for everyone and where you stand against the competition, go to the
+            <a href="/scoring">Results</a> page. You will see 4 tables -- Front 9, Back 9, Total 18, and a
+            Team Net. Enter your scores as you go during your round to see real-time stats!
+        </div>
+    <h3>Registering Your User</h3>
+        <div>
+            All usernames are already preloaded. The username consist of the first letter of your
+            first name followed by your last name. For example, a username for "Kyle Mueller" would be kmueller.
+            <br>
+            For first time login, head to the <a href="{{ url_for('register') }}">Registration</a> page and set a
+            password. You will be redirected to the login page and you should now be able to login. Once logged in,
+            you will have the ability to enter scores for all the players on your team.
+        </div>
+    <h3>Resetting Your Password</h3>
+        <div>
+            If you forget your password or need to reset it, please contact Kyle. He will be able to reset the password,
+            and you can then re-register your user.
+        </div>
+{% endblock %}

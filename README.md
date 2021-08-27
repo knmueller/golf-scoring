@@ -56,6 +56,7 @@ tables. There is also a "Results" link in the top bar to go directly to the Resu
 #### TODO
 X - authentication / signup page <br>
 X - editing player scores allowed only for the player who is logged in <br>
-- reset password by email? (need a mail server)  
+X - help page <br>
+X - reset password via admin page
 - issues with multiple open pages trying to submit scores?
 - unittests for flask ?

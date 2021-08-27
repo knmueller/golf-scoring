@@ -87,6 +87,11 @@ def reset_pw():
     return render_template('reset_password.html', form=form)
 
 
+@app.route("/help")
+def help_page():
+    return render_template('help.html')
+
+
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def root():
