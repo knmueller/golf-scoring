@@ -54,6 +54,7 @@ tables. There is also a "Results" link in the top bar to go directly to the Resu
 
 
 #### TODO
-- authentication / signup page
-- editing player scores allowed only for the player who is logged in
-- issues with multiple open pages trying to submit?
+X - authentication / signup page <br>
+X - editing player scores allowed only for the player who is logged in <br>
+- reset password by email? (need a mail server)  
+- issues with multiple open pages trying to submit scores?

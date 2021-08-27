@@ -1,11 +1,33 @@
-from app import db
+from app import db, login
+from flask_login import UserMixin
 from initial_data import _HANDICAPS_, _HANDICAP_INDICES_NINE_HOLES_, _PLAYERS_, _TEAMS_
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    role = db.Column(db.String(64))
+    username = db.Column(db.String(64), index=True, unique=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    password_hash = db.Column(db.String(128))
+    # player_id ?
+    # team_id ?
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password) if self.password_hash is not None else False
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
 
 
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     team_id = db.Column(db.Integer, db.ForeignKey('team.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     hdcp_index_nine = db.Column(db.String(4))  # max 3 digits + "." -> 10.4
     hdcp_front = db.Column(db.Integer)
     hdcp_back = db.Column(db.Integer)
@@ -49,18 +71,36 @@ class Team(db.Model):
         return '<{} Team {}>'.format(self.id, self.name)
 
 
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+def init_users():
+    users = User.query.all()
+    if users is None or len(users) == 0:
+        print("Adding all users")
+        for name, username, email, role in _PLAYERS_:
+            print("Adding user {}".format(name))
+            user = User(username=username, email=email, role=role)
+            db.session.add(user)
+        db.session.commit()
+
+
 def init_players():
     players = Player.query.all()
-    print("players = {}".format(players))
     if players is None or len(players) == 0:
         print("Adding all players")
-        for name in _PLAYERS_:
+        for name, username, email, role in _PLAYERS_:
             print("Adding player {}".format(name))
+            user = User.query.filter_by(username=username).first()
+            if user is None:
+                raise Exception('User not found in user table with username "{}"'.format(username))
             hdcp_front = _HANDICAPS_[name][0]
             hdcp_back = _HANDICAPS_[name][1]
             hdcp_total = hdcp_front + hdcp_back
             hdcp_index_nine = str(_HANDICAP_INDICES_NINE_HOLES_[name])
-            player = Player(name=name, hdcp_front=hdcp_front, hdcp_back=hdcp_back, hdcp_total=hdcp_total,
+            player = Player(name=name, user_id=user.id, hdcp_front=hdcp_front, hdcp_back=hdcp_back, hdcp_total=hdcp_total,
                             hdcp_index_nine=hdcp_index_nine)
             db.session.add(player)
         db.session.commit()
@@ -76,13 +116,17 @@ def init_teams():
             p2 = Player.query.filter_by(name=players[1]).first()
             team = Team(name=name, player_one=p1.id, player_two=p2.id)
             db.session.add(team)
-            print("dir p1 {}".format(dir(p1)))
+            print("p1 {} - team {}".format(p1, p1.team_id))
+            # commit to DB so we get an id from the entry
+            db.session.commit()
             p1.team_id = team.id
             p2.team_id = team.id
-            db.session.commit()
+            print("p1 {} - team {}".format(p1, p1.team_id))
+            # db.session.commit()
 
 
 def init_defaults():
     """Pre-Populate Tables"""
+    init_users()
     init_players()
     init_teams()

@@ -48,6 +48,8 @@ def create_player_tables(players):
         back_scores.append(PlayerScore(display_name, player.back_score, player.back_net_score))
         total_scores.append(PlayerScore(display_name, player.total_score, player.total_net_score))
 
+    # TODO BUGBUG here where sorted crashes after a clean, initialized DB if going straight to Results screen
+    #      without hitting Submit once on entering scores.
     front_scores = sorted(front_scores, key=lambda score: score.net_score)
     back_scores = sorted(back_scores, key=lambda score: score.net_score)
     total_scores = sorted(total_scores, key=lambda score: score.net_score)
