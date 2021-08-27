@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     # team_id ?
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password) if password is not None else None
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password) if self.password_hash is not None else False

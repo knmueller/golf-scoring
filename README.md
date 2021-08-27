@@ -58,3 +58,4 @@ X - authentication / signup page <br>
 X - editing player scores allowed only for the player who is logged in <br>
 - reset password by email? (need a mail server)  
 - issues with multiple open pages trying to submit scores?
+- unittests for flask ?

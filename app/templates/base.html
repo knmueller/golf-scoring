@@ -6,12 +6,15 @@
     </head>
     <body onload="runOnLoad()">
         <div style="font-size: large;">Scoring:
-            <a href="/">Home</a>
+            <a href="/" style="margin-right: 5px;">Home</a>
             <a href="/scoring">Results</a>
             {% if current_user.is_anonymous %}
                 <a href="/login" style="float: right;">Login</a>
             {% else %}
-                <a href="/logout" style="float: right;">Logout</a>
+                <a href="/logout" style="float: right; margin-right: 5px;">Logout</a>
+                {% if current_user.role == 'admin' %}
+                    <a href="/reset_pw" style="float: right; margin-right: 10px;">Reset Password</a>
+                {% endif %}
             {% endif %}
         </div>
         <hr>

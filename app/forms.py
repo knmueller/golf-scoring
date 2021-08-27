@@ -25,6 +25,16 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Username does not exist.')
 
 
+class ResetPasswordForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    submit = SubmitField('Reset')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is None:
+            raise ValidationError('Username does not exist.')
+
+
 class PlayerScoreForm(FlaskForm):
     player_name = StringField('name', render_kw={'readonly': True})
     hole1 = IntegerField('1', validators=[Optional()], render_kw={'type': 'number'})

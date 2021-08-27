@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from werkzeug.utils import redirect
 
 from app import app, db
-from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm
+from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm
 from app.models import Player, Team, User
 from app.scoring import save_players, create_scoring_tables
 
@@ -68,13 +68,31 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route("/reset_pw", methods=['GET', 'POST'])
+@login_required
+def reset_pw():
+    form = None
+    if current_user.role == 'admin':
+        form = ResetPasswordForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(username=form.username.data).first()
+            if user is None:
+                flash('User not found to reset password')
+                return redirect(url_for('reset_pw'))
+            user.set_password(None)
+            db.session.commit()
+            flash('{}\'s password has been reset. Please re-register'.format(user.username))
+            return redirect(url_for('register'))
+
+    return render_template('reset_password.html', form=form)
+
+
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def root():
     print("start /")
     league = LeagueForm()
     if league.validate_on_submit():
-        # flash('Submitting scores...')
         print('submitting scores...')
         save_players(league)
         return redirect('/scoring')
