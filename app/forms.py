@@ -1,7 +1,7 @@
 from app.models import User
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, FieldList, FormField, PasswordField, BooleanField
+from wtforms import StringField, IntegerField, SubmitField, FieldList, FormField, PasswordField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, Optional, ValidationError, EqualTo
 
 
@@ -60,4 +60,5 @@ class PlayerScoreForm(FlaskForm):
 class LeagueForm(FlaskForm):
     title = StringField('title')
     players = FieldList(FormField(PlayerScoreForm))
-    submit = SubmitField('Submit Scores', render_kw={'onclick': 'loading();'})
+    submit = SubmitField('Submit Scores', render_kw={'onclick': 'loading(); getChangedFields();'})
+    modified = HiddenField("modified_scores")

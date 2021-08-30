@@ -5,23 +5,13 @@ from werkzeug.utils import redirect
 
 from app import app, db
 from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm
-from app.models import Player, Team, User
+from app.models import Player, User
 from app.scoring import save_players, create_scoring_tables
 
 
 def add_hole(num, form, player):
     hole_score = getattr(player, 'hole{}'.format(num))
     setattr(form, 'hole{}'.format(num), hole_score)
-    # hole_field = vars(form)['_fields']['hole{}'.format(num)]
-    # hole_field.id = '{}-hole{}'.format(player.name, num)
-    # hole_field.name = '{}-hole{}'.format(player.name, num)
-    # hole_field.short_name = '{}-hole{}'.format(player.name, num)
-    # hole_field.label = '{}-hole{}'.format(player.name, num)
-    # vars(form)['_fields']['hole{}'.format(num)] = hole_field
-    # if player.name == "Mueller, Kyle":
-    #     print("hole_field {}".format(vars(hole_field)))
-    #     print(holeattr)
-    #     print()
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Scores</h1>
-<form action="/" method="post" novalidate>
+<form id="scores_form" action="/" method="post" novalidate>
     {{ league.hidden_tag() }}
     <div>
         {% for player in league.players %}
@@ -24,36 +24,83 @@
                 <tr>
                     {{ player.hidden_tag() }}
                     <td class="extend">{{ player.player_name }}</td>
-                    <td class="shrink">{{ player.hole1 }}</td>
-                    <td class="shrink">{{ player.hole2 }}</td>
-                    <td class="shrink">{{ player.hole3 }}</td>
-                    <td class="shrink">{{ player.hole4 }}</td>
-                    <td class="shrink">{{ player.hole5 }}</td>
-                    <td class="shrink">{{ player.hole6 }}</td>
-                    <td class="shrink">{{ player.hole7 }}</td>
-                    <td class="shrink">{{ player.hole8 }}</td>
-                    <td class="shrink">{{ player.hole9 }}</td>
-                    <td class="shrink">{{ player.hole10 }}</td>
-                    <td class="shrink">{{ player.hole11 }}</td>
-                    <td class="shrink">{{ player.hole12 }}</td>
-                    <td class="shrink">{{ player.hole13 }}</td>
-                    <td class="shrink">{{ player.hole14 }}</td>
-                    <td class="shrink">{{ player.hole15 }}</td>
-                    <td class="shrink">{{ player.hole16 }}</td>
-                    <td class="shrink">{{ player.hole17 }}</td>
-                    <td class="shrink">{{ player.hole18 }}</td>
+                    <td class="shrink">{{ player.hole1(id='{}-hole1'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole2(id='{}-hole2'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole3(id='{}-hole3'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole4(id='{}-hole4'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole5(id='{}-hole5'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole6(id='{}-hole6'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole7(id='{}-hole7'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole8(id='{}-hole8'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole9(id='{}-hole9'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole10(id='{}-hole10'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole11(id='{}-hole11'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole12(id='{}-hole12'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole13(id='{}-hole13'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole14(id='{}-hole14'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole15(id='{}-hole15'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole16(id='{}-hole16'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole17(id='{}-hole17'.format(player.player_name._value())) }}</td>
+                    <td class="shrink">{{ player.hole18(id='{}-hole18'.format(player.player_name._value())) }}</td>
+
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div id="content"><p>{{ league.submit() }}</p></div>
+    <div id="submit-button"><p>{{ league.submit() }}</p></div>
+    <div id="modifieddiv"><p>{{ league.modified() }}</p></div>
 </form>
 {% endblock %}
 
 {% block extra_scripts %}
-    <script>
-        function runOnLoad() { /* Intentionally empty (for now) */ }
+    <script type="text/javascript">
+        var initial_values = new Array();
+
+        function runOnLoad() {
+            console.log("initializing fields");
+            setInitialFormValues();
+        }
+
+        function getAllFormElements() {
+            // Return variable.
+            var all_form_elements = Array();
+
+            // The form.
+            var form_activity_report = document.getElementById('scores_form');
+
+            // Different types of form elements.
+            var inputs = form_activity_report.getElementsByTagName('input');
+            var i;
+            for (i = 0; i < inputs.length; i++) {
+                all_form_elements.push(inputs[i]);
+            }
+            return all_form_elements;
+        }
+
+        function setInitialFormValues() {
+            var inputs = getAllFormElements();
+            for (var i = 0; i < inputs.length; i++) {
+                initial_values.push(inputs[i].value);
+            }
+        }
+
+        function getChangedFields() {
+            var has_changed = false;
+            var elements = getAllFormElements();
+            var modified = document.getElementById('modified');
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].value != initial_values[i]) {
+                    changed = elements[i].id
+                    if (modified.value) {
+                        changed = "; " + changed
+                    }
+                    modified.value = modified.value + changed
+                }
+            }
+        }
+
     </script>
 {% endblock %}

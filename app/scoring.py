@@ -3,14 +3,17 @@ from app.models import Player, Team
 from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable
 
 
-def save_player(player, db_player):
+def save_player(player, db_player, modified_holes):
     # Walk through front 9 and back 9. Save gross and net scores.
 
     front_nine_score = 0
     for i in range(1, 9):
         hole_num = 'hole{}'.format(i)
-        hole_score = getattr(player, hole_num).data
-        setattr(db_player, hole_num, hole_score)
+        if hole_num in modified_holes:
+            hole_score = getattr(player, hole_num).data
+            setattr(db_player, hole_num, hole_score)
+        else:
+            hole_score = getattr(db_player, hole_num)
         if hole_score is not None:
             front_nine_score += hole_score
     db_player.front_score = front_nine_score
@@ -19,9 +22,11 @@ def save_player(player, db_player):
     back_nine_score = 0
     for i in range(10, 19):
         hole_num = 'hole{}'.format(i)
-        print('checking {}'.format(hole_num))
-        hole_score = getattr(player, hole_num).data
-        setattr(db_player, hole_num, hole_score)
+        if hole_num in modified_holes:
+            hole_score = getattr(player, hole_num).data
+            setattr(db_player, hole_num, hole_score)
+        else:
+            hole_score = getattr(db_player, hole_num)
         if hole_score is not None:
             back_nine_score += hole_score
     db_player.back_score = back_nine_score
@@ -31,10 +36,34 @@ def save_player(player, db_player):
 
 
 def save_players(league):
+
+    modified = league.modified.data.strip()
+    modified_players_holes = {}  # { name: [holes] }
+    if not modified:
+        print('No scores modified.. Won\'t process new scores')
+        return
+
+    # Build a map of name to list of holes. Only store/save the modified holes on this form submission
+    modified = modified.split('; ')
+    modified = [m.split('-') for m in modified]
+    for m in modified:
+        name = m[0]
+        hole = m[1]
+        if name in modified_players_holes.keys():
+            modified_players_holes[name].append(hole)
+        else:
+            modified_players_holes[name] = [hole]
+
+    print('MODIFIED player_holes {}'.format(modified_players_holes))
+
     for player in league.players:
         player_name = player.player_name.data
+        if player_name not in modified_players_holes.keys():
+            continue
+
         db_player = Player.query.filter_by(name=player_name).first()
-        save_player(player, db_player)
+        print("Saving player {}; dbplayer {}".format(player_name, db_player))
+        save_player(player, db_player, modified_players_holes[player_name])
     db.session.commit()
 
 
