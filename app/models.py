@@ -58,7 +58,7 @@ class Player(db.Model):
     hole18 = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<{} Player {}>'.format(self.id, self.name)
+        return '<{} Player {}; Team {}>'.format(self.id, self.name, self.team_id)
 
 
 class Team(db.Model):
@@ -66,6 +66,7 @@ class Team(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     player_one = db.Column(db.Integer, db.ForeignKey('player.id'))
     player_two = db.Column(db.Integer, db.ForeignKey('player.id'))
+    foursome = db.Column(db.Integer)
 
     def __repr__(self):
         return '<{} Team {}>'.format(self.id, self.name)
@@ -110,11 +111,12 @@ def init_teams():
     teams = Team.query.all()
     if teams is None or len(teams) == 0:
         print("Adding all teams")
-        for name, players in _TEAMS_.items():
+        for name, players_and_foursome in _TEAMS_.items():
             print("Adding team {}".format(name))
-            p1 = Player.query.filter_by(name=players[0]).first()
-            p2 = Player.query.filter_by(name=players[1]).first()
-            team = Team(name=name, player_one=p1.id, player_two=p2.id)
+            p1 = Player.query.filter_by(name=players_and_foursome[0]).first()
+            p2 = Player.query.filter_by(name=players_and_foursome[1]).first()
+            foursome = players_and_foursome[2]
+            team = Team(name=name, player_one=p1.id, player_two=p2.id, foursome=foursome)
             db.session.add(team)
             print("p1 {} - team {}".format(p1, p1.team_id))
             # commit to DB so we get an id from the entry
@@ -122,7 +124,7 @@ def init_teams():
             p1.team_id = team.id
             p2.team_id = team.id
             print("p1 {} - team {}".format(p1, p1.team_id))
-            # db.session.commit()
+            db.session.commit()
 
 
 def init_defaults():

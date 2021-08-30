@@ -5,7 +5,7 @@ from werkzeug.utils import redirect
 
 from app import app, db
 from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm
-from app.models import Player, User
+from app.models import Player, User, Team
 from app.scoring import save_players, create_scoring_tables
 
 
@@ -97,8 +97,16 @@ def root():
         if current_user.role == 'admin':
             players = Player.query.all()
         else:
+            # Get all players in the current users foursome
             this_player = Player.query.filter_by(user_id=current_user.id).first()
-            players = Player.query.filter_by(team_id=this_player.team_id)
+            player_team = Team.query.get(this_player.team_id)
+            foursome = player_team.foursome
+            teams = Team.query.filter_by(foursome=foursome).all()
+            team_ids = []
+            for team in teams:
+                team_ids.append(team.id)
+
+            players = Player.query.filter(Player.team_id.in_(team_ids)).all()
 
         for player in players:
             print('adding player to form {}'.format(player))

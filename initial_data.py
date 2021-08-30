@@ -21,16 +21,16 @@ _PLAYERS_ = [('Adams, Dave', 'dadams', 'david.adams@viasat.com', 'user'),
              ]
 
 _TEAMS_ = {
-    "Watch Out For I.T.": ("Ettenhofer, Todd", "McLaughin, Ivonne"),
-    "Yin and Yang": ("Wante, Nathan", "Denlinger, Dave"),
-    "2 Balls 1 Cup": ("Mueller, Kyle", "Tillotson, Paul"),
-    "The Olson Twins": ("Hurley, Jim", "Adams, Dave"),
-    "Sub Team 1": ("Vincent, Shawn", "Audi, Rob"),  # TODO subs
-    "No beer cart no prob": ("White, Justin", "McLaughin, Mark-David"),
-    "C & C Gang": ("Merritt, Chad", "Kelley, Connor"),
-    "Gone Not Forgotten": ("Wante, Ken", "Flanagan, Dave"),
-    "Portugues Rolls": ("Ferreira, Tom", "DeOliveira, Fernando"),
-    "Positive Vibes": ("Champagne, Tim", "Carle, Andy")
+    "Watch Out For I.T.": ("Ettenhofer, Todd", "McLaughin, Ivonne", 1),
+    "Yin and Yang": ("Wante, Nathan", "Denlinger, Dave", 1),
+    "2 Balls 1 Cup": ("Mueller, Kyle", "Tillotson, Paul", 2),
+    "The Olson Twins": ("Hurley, Jim", "Adams, Dave", 2),
+    "Sub Team 1": ("Vincent, Shawn", "Audi, Rob", 3),  # TODO subs
+    "No beer cart no prob": ("White, Justin", "McLaughin, Mark-David", 3),
+    "C & C Gang": ("Merritt, Chad", "Kelley, Connor", 4),
+    "Gone Not Forgotten": ("Wante, Ken", "Flanagan, Dave", 4),
+    "Portugues Rolls": ("Ferreira, Tom", "DeOliveira, Fernando", 5),
+    "Positive Vibes": ("Champagne, Tim", "Carle, Andy", 5)
 }
 
 # Handicap Index × (Slope Rating ÷ 113) + (Course Rating – Par)
