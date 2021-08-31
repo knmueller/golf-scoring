@@ -1,6 +1,8 @@
+from flask_table import Col
+
 from app import db
 from app.models import Player, Team
-from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable
+from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable, TeamBestGrossScore, TeamBestGrossTable
 
 
 def save_player(player, db_player, modified_holes):
@@ -99,8 +101,45 @@ def create_team_table(players):
     return TeamNetTable(team_scores, table_id='team-net')
 
 
+def create_team_best_gross_table():
+    team_gross_scores = []
+    for i in range(1, 6):
+        teams = Team.query.filter_by(foursome=i).all()
+        if len(teams) != 2:
+            raise Exception('Can\'t find teams for foursome #{}'.format(i))
+        team1 = teams[0]
+        team2 = teams[1]
+        p1 = Player.query.get(team1.player_one)
+        p2 = Player.query.get(team1.player_two)
+        p3 = Player.query.get(team2.player_one)
+        p4 = Player.query.get(team2.player_two)
+
+        score_table_obj = TeamBestGrossScore('{} - {}'.format(team1.name, team2.name))
+        total_score = 0
+        for h in range(1, 19):
+            hole = 'hole{}'.format(h)
+            # get hole score for all 4 players, sort it, and take the first 3.
+            top_scores = sorted([getattr(player, hole) for player in [p1, p2, p3, p4]], key=lambda x: (x is None, x))[:3]
+            total = sum(filter(None, top_scores))
+            setattr(score_table_obj, hole, total)
+            total_score += total
+
+        setattr(score_table_obj, 'score', total_score)
+        team_gross_scores.append(score_table_obj)
+
+    team_gross_scores = sorted(team_gross_scores, key=lambda score: score.score)
+    table = TeamBestGrossTable(team_gross_scores, table_id='best-gross')
+    for h in range(1, 19):
+        hole_ = 'hole{}'.format(h)
+        hole = 'Hole {}'.format(h)
+        table.add_column(hole_, Col(hole, td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
+    table.add_column('score', Col('Score', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
+    return table
+
+
 def create_scoring_tables():
     players = Player.query.all()
     front_table, back_table, total_table = create_player_tables(players)
     team_table = create_team_table(players)
-    return front_table, back_table, total_table, team_table
+    team_best_gross_table = create_team_best_gross_table()
+    return front_table, back_table, total_table, team_table, team_best_gross_table

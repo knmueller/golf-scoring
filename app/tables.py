@@ -29,7 +29,6 @@ class PlayerScore(NetScore):
 
 
 class TeamNetTable(Table):
-    # allow_sort = True  ## look up examples for sort https://flask-table.readthedocs.io/en/stable/
     classes = ['scoring_table']
     name = Col('Name')  # team name
     player_one_net = Col('Player 1 Net', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
@@ -50,3 +49,16 @@ class TeamNetScore(NetScore):
         NetScore.__init__(self, name, p1_net + p2_net)
         self.player_one_net = p1_net
         self.player_two_net = p2_net
+
+
+class TeamBestGrossTable(Table):
+    classes = ['scoring_table']
+    name = Col('Foursome')
+    # dynamic columns
+        # holes 1 through 18 - (score1, score2, score3) sum
+        # score = Col('Score', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+
+
+class TeamBestGrossScore(object):
+    def __init__(self, name):
+        self.name = name
