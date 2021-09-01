@@ -4,6 +4,7 @@ from app import db
 from app.models import Player, Team
 from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable, TeamBestGrossScore, \
     TeamBestGrossTable, ChampMatchScore, ChampMatchTable
+from initial_data import _MEN_COURSE_HDCP_, _WOMEN_COURSE_HDCP_
 
 
 def save_player(player, db_player, modified_holes):
@@ -92,10 +93,6 @@ def create_team_table(players):
     teams = Team.query.all()
     team_scores = []
     for team in teams:
-        if team.foursome == 5:
-            # Skip the championship match
-            continue
-
         # player id is 1 based where the player list is 0 based, so -1 on the index for the correct player
         player_one = players[team.player_one - 1]
         player_two = players[team.player_two - 1]
@@ -153,10 +150,23 @@ def create_team_best_gross_table():
     return table
 
 
+def get_hdcp_row(name, hdcp_list):
+    hdcp_obj = ChampMatchScore(name)
+    for h in range(1, 19):
+        hole = 'hole{}'.format(h)
+        hdcp = hdcp_list[h - 1]
+        setattr(hdcp_obj, hole, hdcp)
+    return hdcp_obj
+
+
 def create_champ_match_table():
     team1, team2, p1, p2, p3, p4 = get_foursome(5)
     players = (p1, p2, p3, p4)
     champ_scores = []
+
+    # add men's hdcp as a row
+    champ_scores.append(get_hdcp_row('Men\'s hdcp', _MEN_COURSE_HDCP_))
+
     for i in range(0, 4):
         player = players[i]
         score_table_obj = ChampMatchScore('{} ({})'.format(player.name, player.hdcp_total))
@@ -165,6 +175,9 @@ def create_champ_match_table():
             hole_score = getattr(player, hole)
             setattr(score_table_obj, hole, hole_score if hole_score and hole_score > 0 else None)
         champ_scores.append(score_table_obj)
+
+    # add women's hdcp as a row
+    champ_scores.append(get_hdcp_row('Women\'s hdcp', _WOMEN_COURSE_HDCP_))
 
     table = ChampMatchTable(champ_scores, table_id='champ-match')
     return add_holes_to_table(table)
