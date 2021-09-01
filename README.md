@@ -59,6 +59,7 @@ X - editing player scores allowed only for the player who is logged in <br>
 X - help page <br>
 X - reset password via admin page
 X - Fix submission bug
+X - Add admin user outside of kmueller
 - Update results table titles and font
 - issues with multiple open pages trying to submit scores?
 - unittests for flask ?

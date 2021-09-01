@@ -85,6 +85,7 @@ def init_users():
             print("Adding user {}".format(name))
             user = User(username=username, email=email, role=role)
             db.session.add(user)
+        db.session.add(User(username='admin', email='kmueller+admin@bluecedar.com', role='admin'))
         db.session.commit()
 
 
