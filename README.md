@@ -60,6 +60,8 @@ X - help page <br>
 X - reset password via admin page
 X - Fix submission bug
 X - Add admin user outside of kmueller
+X - Best Gross table -- no zeros
+- refresh login timeout
 - Update results table titles and font
 - issues with multiple open pages trying to submit scores?
 - unittests for flask ?

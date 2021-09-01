@@ -18,7 +18,7 @@ def save_player(player, db_player, modified_holes):
             hole_score = getattr(db_player, hole_num)
         if hole_score is not None:
             front_nine_score += hole_score
-    db_player.front_score = front_nine_score
+    db_player.front_score = front_nine_score if front_nine_score > 0 else None
     db_player.front_net_score = front_nine_score - db_player.hdcp_front
 
     back_nine_score = 0
@@ -31,9 +31,9 @@ def save_player(player, db_player, modified_holes):
             hole_score = getattr(db_player, hole_num)
         if hole_score is not None:
             back_nine_score += hole_score
-    db_player.back_score = back_nine_score
+    db_player.back_score = back_nine_score if back_nine_score > 0 else None
     db_player.back_net_score = back_nine_score - db_player.hdcp_back
-    db_player.total_score = front_nine_score + back_nine_score
+    db_player.total_score = front_nine_score + back_nine_score if front_nine_score + back_nine_score > 0 else None
     db_player.total_net_score = front_nine_score + back_nine_score - db_player.hdcp_total
 
 
@@ -97,7 +97,7 @@ def create_team_table(players):
         table_name = '{} ({}, {})'.format(team.name, player_one.name, player_two.name)
         team_scores.append(TeamNetScore(table_name, player_one.total_net_score, player_two.total_net_score))
 
-    team_scores = sorted(team_scores, key=lambda score: score.net_score)
+    team_scores = sorted(team_scores, key=lambda score: (score.net_score is None, score.net_score))
     return TeamNetTable(team_scores, table_id='team-net')
 
 
@@ -121,13 +121,13 @@ def create_team_best_gross_table():
             # get hole score for all 4 players, sort it, and take the first 3.
             top_scores = sorted([getattr(player, hole) for player in [p1, p2, p3, p4]], key=lambda x: (x is None, x))[:3]
             total = sum(filter(None, top_scores))
-            setattr(score_table_obj, hole, total)
+            setattr(score_table_obj, hole, total if total > 0 else None)
             total_score += total
 
-        setattr(score_table_obj, 'score', total_score)
+        setattr(score_table_obj, 'score', total_score if total_score > 0 else None)
         team_gross_scores.append(score_table_obj)
 
-    team_gross_scores = sorted(team_gross_scores, key=lambda score: score.score)
+    team_gross_scores = sorted(team_gross_scores, key=lambda score: (score.score is None, score.score))
     table = TeamBestGrossTable(team_gross_scores, table_id='best-gross')
     for h in range(1, 19):
         hole_ = 'hole{}'.format(h)
