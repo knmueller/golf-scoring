@@ -71,3 +71,21 @@ class TeamBestGrossTable(Table):
 class TeamBestGrossScore(object):
     def __init__(self, name):
         self.name = name
+
+
+class ChampMatchTable(Table):
+    classes = ['scoring_table']
+    name = Col('Player', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+    # dynamic columns
+        # holes 1 through 18 - (score1, score2, score3) sum
+
+    def get_thead_attrs(self):
+        return {'class': 'table__header'}
+
+    def get_tr_attrs(self, item):
+        return {'class': 'table__row'}
+
+
+class ChampMatchScore(object):
+    def __init__(self, name):
+        self.name = name

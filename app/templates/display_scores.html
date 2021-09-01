@@ -7,6 +7,7 @@
 {{ total }}
 {{ team }}
 {{ best_gross }}
+{{ champ_match_table }}
 {% endblock %}
 
 {% block extra_scripts %}
@@ -22,10 +23,13 @@
           total_table.innerHTML = "<b>Total Net</b>";
 
           var team_table = document.getElementById("team-net").createCaption();
-          team_table.innerHTML = "<b>Team Net</b>";
+          team_table.innerHTML = "<b>Best of the Worst</b>";
 
           var gross_best_table = document.getElementById("best-gross").createCaption();
           gross_best_table.innerHTML = "<b>Team Best Gross</b>";
+
+          var champ_table = document.getElementById("champ-match").createCaption();
+          champ_table.innerHTML = "<b>Championship Match (Gross Scores)</b>";
         }
     </script>
 {% endblock %}

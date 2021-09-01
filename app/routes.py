@@ -122,9 +122,9 @@ def root():
 @app.route("/scoring")
 @login_required
 def calc():
-    front_table, back_table, total_table, team_table, team_best_gross_table = create_scoring_tables()
+    front_table, back_table, total_table, team_table, team_best_gross_table, champ_match_table = create_scoring_tables()
     return render_template('display_scores.html', front=front_table, back=back_table, total=total_table,
-                           team=team_table, best_gross=team_best_gross_table)
+                           team=team_table, best_gross=team_best_gross_table, champ_match_table=champ_match_table)
 
 
 @app.route("/static/loadingimage.gif")

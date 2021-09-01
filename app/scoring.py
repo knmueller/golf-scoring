@@ -2,7 +2,8 @@ from flask_table import Col
 
 from app import db
 from app.models import Player, Team
-from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable, TeamBestGrossScore, TeamBestGrossTable
+from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable, TeamBestGrossScore, \
+    TeamBestGrossTable, ChampMatchScore, ChampMatchTable
 
 
 def save_player(player, db_player, modified_holes):
@@ -91,6 +92,10 @@ def create_team_table(players):
     teams = Team.query.all()
     team_scores = []
     for team in teams:
+        if team.foursome == 5:
+            # Skip the championship match
+            continue
+
         # player id is 1 based where the player list is 0 based, so -1 on the index for the correct player
         player_one = players[team.player_one - 1]
         player_two = players[team.player_two - 1]
@@ -101,19 +106,33 @@ def create_team_table(players):
     return TeamNetTable(team_scores, table_id='team-net')
 
 
+# returns (team1, team2, p1, p2, p3, p4)
+def get_foursome(foursome_idx):
+    teams = Team.query.filter_by(foursome=foursome_idx).all()
+    if len(teams) != 2:
+        raise Exception('Can\'t find teams for foursome #{}'.format(foursome_idx))
+    team1 = teams[0]
+    team2 = teams[1]
+    p1 = Player.query.get(team1.player_one)
+    p2 = Player.query.get(team1.player_two)
+    p3 = Player.query.get(team2.player_one)
+    p4 = Player.query.get(team2.player_two)
+    return team1, team2, p1, p2, p3, p4
+
+
+def add_holes_to_table(table):
+    for h in range(1, 19):
+        hole_ = 'hole{}'.format(h)
+        # TODO add hole suffix for hole hdcp -- different men's / women's hdcp
+        hole = 'Hole {}'.format(h)
+        table.add_column(hole_, Col(hole, td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
+    return table
+
+
 def create_team_best_gross_table():
     team_gross_scores = []
     for i in range(1, 6):
-        teams = Team.query.filter_by(foursome=i).all()
-        if len(teams) != 2:
-            raise Exception('Can\'t find teams for foursome #{}'.format(i))
-        team1 = teams[0]
-        team2 = teams[1]
-        p1 = Player.query.get(team1.player_one)
-        p2 = Player.query.get(team1.player_two)
-        p3 = Player.query.get(team2.player_one)
-        p4 = Player.query.get(team2.player_two)
-
+        team1, team2, p1, p2, p3, p4 = get_foursome(i)
         score_table_obj = TeamBestGrossScore('{} - {}'.format(team1.name, team2.name))
         total_score = 0
         for h in range(1, 19):
@@ -129,12 +148,26 @@ def create_team_best_gross_table():
 
     team_gross_scores = sorted(team_gross_scores, key=lambda score: (score.score is None, score.score))
     table = TeamBestGrossTable(team_gross_scores, table_id='best-gross')
-    for h in range(1, 19):
-        hole_ = 'hole{}'.format(h)
-        hole = 'Hole {}'.format(h)
-        table.add_column(hole_, Col(hole, td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
+    table = add_holes_to_table(table)
     table.add_column('score', Col('Score', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
     return table
+
+
+def create_champ_match_table():
+    team1, team2, p1, p2, p3, p4 = get_foursome(5)
+    players = (p1, p2, p3, p4)
+    champ_scores = []
+    for i in range(0, 4):
+        player = players[i]
+        score_table_obj = ChampMatchScore('{} ({})'.format(player.name, player.hdcp_total))
+        for h in range(1, 19):
+            hole = 'hole{}'.format(h)
+            hole_score = getattr(player, hole)
+            setattr(score_table_obj, hole, hole_score if hole_score and hole_score > 0 else None)
+        champ_scores.append(score_table_obj)
+
+    table = ChampMatchTable(champ_scores, table_id='champ-match')
+    return add_holes_to_table(table)
 
 
 def create_scoring_tables():
@@ -142,4 +175,5 @@ def create_scoring_tables():
     front_table, back_table, total_table = create_player_tables(players)
     team_table = create_team_table(players)
     team_best_gross_table = create_team_best_gross_table()
-    return front_table, back_table, total_table, team_table, team_best_gross_table
+    champ_match_table = create_champ_match_table()
+    return front_table, back_table, total_table, team_table, team_best_gross_table, champ_match_table
