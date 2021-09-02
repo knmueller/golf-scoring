@@ -23,7 +23,7 @@ _PLAYERS_ = [('Adams, Dave', 'dadams', 'david.adams@viasat.com', 'gold'),
 _TEAMS_ = {
     "Yin and Yang": ("Wante, Nathan", "Denlinger, Dave", 1),
     "Gone Not Forgotten": ("Wante, Ken", "Flanagan, Dave", 1),
-    "Portugues Rolls": ("Ferreira, Tom", "DeOliveira, Fernando", 2),
+    "Portuguese Rolls": ("Ferreira, Tom", "DeOliveira, Fernando", 2),
     "Positive Vibes": ("Champagne, Tim", "Carle, Andy", 2),
     "The Olson Twins": ("Hurley, Jim", "Adams, Dave", 3),
     "No beer cart no prob": ("White, Justin", "McLaughin, Mark-David", 3),
@@ -76,7 +76,7 @@ _HANDICAPS_ = {
     "Merritt, Chad": (6, 5),
     "Mueller, Kyle": (8, 8),
     "Tillotson, Paul": (23, 23),
-    "Vincent, Shawn": (31, 31),
+    "Vincent, Shawn": (25, 25),
     "Wante, Ken": (9, 9),
     "Wante, Nathan": (12, 12),
     "White, Justin": (11, 10)
