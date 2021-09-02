@@ -63,8 +63,8 @@ X - Add admin user outside of kmueller
 X - Best Gross table -- no zeros
 X - Add table for Championship match -- gross scores
 X - add hole handicaps
+X - can add negative numbers to input field on scores
 - highlight champ table hole winner in javascript
-- can add negative numbers to input field on scores
 - calculate handicap match scores
 - refresh login timeout
 - Update results table titles and font
