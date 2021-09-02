@@ -7,37 +7,33 @@ from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable
 from initial_data import _MEN_COURSE_HDCP_, _WOMEN_COURSE_HDCP_
 
 
-def save_player(player, db_player, modified_holes):
-    # Walk through front 9 and back 9. Save gross and net scores.
-
-    front_nine_score = 0
-    for i in range(1, 10):
+def get_nine_score(player, db_player, modified_holes, range_):
+    score = 0
+    for i in range_:
         hole_num = 'hole{}'.format(i)
         if hole_num in modified_holes:
             hole_score = getattr(player, hole_num).data
-            print('setting modified {} for player {} with value {}'.format(hole_num, db_player.name, hole_score))
             setattr(db_player, hole_num, hole_score)
         else:
             hole_score = getattr(db_player, hole_num)
         if hole_score is not None:
-            front_nine_score += hole_score
+            score += hole_score
+    return score
+
+
+def save_player(player, db_player, modified_holes):
+    # Walk through front 9 and back 9. Save gross and net scores.
+    front_nine_score = get_nine_score(player, db_player, modified_holes, range(1, 10))
     db_player.front_score = front_nine_score if front_nine_score > 0 else None
     db_player.front_net_score = front_nine_score - db_player.hdcp_front
 
-    back_nine_score = 0
-    for i in range(10, 19):
-        hole_num = 'hole{}'.format(i)
-        if hole_num in modified_holes:
-            hole_score = getattr(player, hole_num).data
-            setattr(db_player, hole_num, hole_score)
-        else:
-            hole_score = getattr(db_player, hole_num)
-        if hole_score is not None:
-            back_nine_score += hole_score
+    back_nine_score = get_nine_score(player, db_player, modified_holes, range(10, 19))
     db_player.back_score = back_nine_score if back_nine_score > 0 else None
     db_player.back_net_score = back_nine_score - db_player.hdcp_back
-    db_player.total_score = front_nine_score + back_nine_score if front_nine_score + back_nine_score > 0 else None
-    db_player.total_net_score = front_nine_score + back_nine_score - db_player.hdcp_total
+
+    total_score = front_nine_score + back_nine_score
+    db_player.total_score = total_score if total_score > 0 else None
+    db_player.total_net_score = total_score - db_player.hdcp_total
     print('SAVING player {}; gross = {} netscore = {}'.format(db_player.name, db_player.total_score, db_player.total_net_score))
 
 
