@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
+    <script src="/app/static/champ_highlight.js"></script>
     <script>
         function runOnLoad() {
           var front_table = document.getElementById("front-nine").createCaption();
@@ -30,6 +31,8 @@
 
           var champ_table = document.getElementById("champ-match").createCaption();
           champ_table.innerHTML = "<b>Championship Match (Net Scores)</b>";
+
+          highlight_champ_table()
         }
     </script>
 {% endblock %}

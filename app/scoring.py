@@ -120,7 +120,6 @@ def get_foursome(foursome_idx):
 def add_holes_to_table(table):
     for h in range(1, 19):
         hole_ = 'hole{}'.format(h)
-        # TODO add hole suffix for hole hdcp -- different men's / women's hdcp
         hole = 'Hole {}'.format(h)
         table.add_column(hole_, Col(hole, td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'}))
     return table
@@ -165,7 +164,7 @@ def create_champ_match_table():
     champ_scores = []
 
     # add men's hdcp as a row
-    champ_scores.append(get_hdcp_row('Men\'s hdcp', _MEN_COURSE_HDCP_))
+    champ_scores.append(get_hdcp_row('Men\'s Handicap', _MEN_COURSE_HDCP_))
 
     for i in range(0, 4):
         player = players[i]
@@ -182,7 +181,7 @@ def create_champ_match_table():
         champ_scores.append(score_table_obj)
 
     # add women's hdcp as a row
-    champ_scores.append(get_hdcp_row('Women\'s hdcp', _WOMEN_COURSE_HDCP_))
+    champ_scores.append(get_hdcp_row('Women\'s Handicap', _WOMEN_COURSE_HDCP_))
 
     table = ChampMatchTable(champ_scores, table_id='champ-match')
     return add_holes_to_table(table)

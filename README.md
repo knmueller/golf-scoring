@@ -64,8 +64,8 @@ X - Best Gross table -- no zeros
 X - Add table for Championship match -- gross scores
 X - add hole handicaps
 X - can add negative numbers to input field on scores
-- highlight champ table hole winner in javascript
-- calculate handicap match scores
+X - calculate handicap match scores
+X - highlight champ table hole winner in javascript
 - refresh login timeout
 - Update results table titles and font
 - Add top/bottom table margins
