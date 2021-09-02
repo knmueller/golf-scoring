@@ -79,9 +79,9 @@ def create_player_tables(players):
         back_scores.append(PlayerScore(display_name, player.back_score, player.back_net_score))
         total_scores.append(PlayerScore(display_name, player.total_score, player.total_net_score))
 
-    front_scores = sorted(front_scores, key=lambda score: score.net_score if score and score.net_score else 0)
-    back_scores = sorted(back_scores, key=lambda score: score.net_score if score and score.net_score else 0)
-    total_scores = sorted(total_scores, key=lambda score: score.net_score if score and score.net_score else 0)
+    front_scores = sorted(front_scores, key=lambda score: (score.net_score is None, score.net_score))
+    back_scores = sorted(back_scores, key=lambda score: (score.net_score is None, score.net_score))
+    total_scores = sorted(total_scores, key=lambda score: (score.net_score is None, score.net_score))
     return PlayerScoreTable(front_scores, table_id='front-nine'), \
            PlayerScoreTable(back_scores, table_id='back-nine'), \
            PlayerScoreTable(total_scores, table_id='total-net')
