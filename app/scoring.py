@@ -11,10 +11,11 @@ def save_player(player, db_player, modified_holes):
     # Walk through front 9 and back 9. Save gross and net scores.
 
     front_nine_score = 0
-    for i in range(1, 9):
+    for i in range(1, 10):
         hole_num = 'hole{}'.format(i)
         if hole_num in modified_holes:
             hole_score = getattr(player, hole_num).data
+            print('setting modified {} for player {} with value {}'.format(hole_num, db_player.name, hole_score))
             setattr(db_player, hole_num, hole_score)
         else:
             hole_score = getattr(db_player, hole_num)
@@ -37,6 +38,7 @@ def save_player(player, db_player, modified_holes):
     db_player.back_net_score = back_nine_score - db_player.hdcp_back
     db_player.total_score = front_nine_score + back_nine_score if front_nine_score + back_nine_score > 0 else None
     db_player.total_net_score = front_nine_score + back_nine_score - db_player.hdcp_total
+    print('SAVING player {}; gross = {} netscore = {}'.format(db_player.name, db_player.total_score, db_player.total_net_score))
 
 
 def save_players(league):
@@ -98,8 +100,10 @@ def create_team_table(players):
         player_two = players[team.player_two - 1]
         table_name = '{} ({}, {})'.format(team.name, player_one.name, player_two.name)
         team_scores.append(TeamNetScore(table_name, player_one.total_net_score, player_two.total_net_score))
+        print('TEAM p1 {}; gross = {} netscore = {}'.format(player_one.name, player_one.total_score, player_one.total_net_score))
 
     team_scores = sorted(team_scores, key=lambda score: (score.net_score is None, score.net_score))
+    print('team scores {}'.format(team_scores))
     return TeamNetTable(team_scores, table_id='team-net')
 
 
@@ -173,7 +177,12 @@ def create_champ_match_table():
         for h in range(1, 19):
             hole = 'hole{}'.format(h)
             hole_score = getattr(player, hole)
-            setattr(score_table_obj, hole, hole_score if hole_score and hole_score > 0 else None)
+            # if hole score is falsy (None or 0), subtract players hole strokes
+            display_score = False
+            if hole_score:
+                display_score = True
+                hole_score -= player.get_hdcp_per_hole()[i - 1]
+            setattr(score_table_obj, hole, hole_score if display_score else None)
         champ_scores.append(score_table_obj)
 
     # add women's hdcp as a row

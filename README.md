@@ -62,9 +62,12 @@ X - Fix submission bug
 X - Add admin user outside of kmueller
 X - Best Gross table -- no zeros
 X - Add table for Championship match -- gross scores
-- add hole handicaps
+X - add hole handicaps
+- highlight champ table hole winner in javascript
+- can add negative numbers to input field on scores
 - calculate handicap match scores
 - refresh login timeout
 - Update results table titles and font
+- Add top/bottom table margins
 - issues with multiple open pages trying to submit scores?
 - unittests for flask ?

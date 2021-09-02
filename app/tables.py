@@ -3,7 +3,6 @@ from flask_table import Table, Col
 
 # used for front, back, total
 class PlayerScoreTable(Table):
-    # allow_sort = True  ## look up examples for sort https://flask-table.readthedocs.io/en/stable/
     classes = ['scoring_table', 'inline_table']
     name = Col('Name', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})  # player name
     gross_score = Col('Gross Score', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
