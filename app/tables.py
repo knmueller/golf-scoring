@@ -45,7 +45,10 @@ class TeamNetScore(NetScore):
     def __init__(self, name, player_one_net, player_two_net):
         p1_net = player_one_net # if player_one_net is not None else 0
         p2_net = player_two_net # if player_two_net is not None else 0
-        NetScore.__init__(self, name, p1_net + p2_net if p1_net and p2_net else None)
+        net_score = (p1_net if p1_net else 0) + (p2_net if p2_net else 0)
+        if p1_net is None and p2_net is None:
+            net_score = None
+        NetScore.__init__(self, name, net_score)
         self.player_one_net = p1_net
         self.player_two_net = p2_net
 
