@@ -35,6 +35,10 @@ class ResetPasswordForm(FlaskForm):
             raise ValidationError('Username does not exist.')
 
 
+class ResetScoresForm(FlaskForm):
+    submit = SubmitField('Reset Scores')
+
+
 class PlayerScoreForm(FlaskForm):
     player_name = StringField('name', render_kw={'readonly': True})
     hole1 = IntegerField('1', validators=[Optional()], render_kw={'type': 'number', 'min': '1'})

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Reset Scores</h1>
+    <form action="" method="post">
+        {% if form %}
+        {{ form.hidden_tag() }}
+            <p>{{ form.submit() }}</p>
+        {% else %}
+            <p>
+                You are not allow to reset password. Please notify your admin.
+            </p>
+        {% endif %}
+    </form>
+{% endblock %}

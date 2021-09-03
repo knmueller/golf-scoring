@@ -4,9 +4,9 @@ from werkzeug.urls import url_parse
 from werkzeug.utils import redirect
 
 from app import app, db
-from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm
+from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm, ResetScoresForm
 from app.models import Player, User, Team
-from app.scoring import save_players, create_scoring_tables
+from app.scoring import save_players, create_scoring_tables, reset_all_scores
 
 
 def add_hole(num, form, player):
@@ -22,7 +22,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            if user.password_hash is None:
+                flash('No password set for this user. Please register.')
+            else:
+                flash('Invalid username or password')
             return redirect('/login')
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -75,6 +78,20 @@ def reset_pw():
             return redirect(url_for('register'))
 
     return render_template('reset_password.html', form=form)
+
+
+@app.route("/reset_scores", methods=['GET', 'POST'])
+@login_required
+def reset_scores():
+    form = None
+    if current_user.role == 'admin':
+        form = ResetScoresForm()
+        if form.validate_on_submit():
+            reset_all_scores()
+            flash('All scores reset')
+            return redirect(url_for('reset_scores'))
+
+    return render_template('reset_scores.html', form=form)
 
 
 @app.route("/help")

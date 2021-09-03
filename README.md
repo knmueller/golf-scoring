@@ -67,7 +67,8 @@ X - can add negative numbers to input field on scores
 X - calculate handicap match scores
 X - highlight champ table hole winner in javascript
 X - sort front/back net tables with None last
-- reset scores button for admin 
+X - Best of Worst - net score not showing if only 1 player entered
+X - reset scores button for admin 
 - refresh login timeout
 - Update results table titles and font
 - Add top/bottom table margins

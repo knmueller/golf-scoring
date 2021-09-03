@@ -7,6 +7,36 @@ from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable
 from initial_data import _MEN_COURSE_HDCP_, _WOMEN_COURSE_HDCP_
 
 
+def reset_all_scores():
+    players = Player.query.all()
+    for player in players:
+        player.front_score = None
+        player.front_net_score = None
+        player.back_score = None
+        player.back_net_score = None
+        player.total_score = None
+        player.total_net_score = None
+        player.hole1 = None
+        player.hole2 = None
+        player.hole3 = None
+        player.hole4 = None
+        player.hole5 = None
+        player.hole6 = None
+        player.hole7 = None
+        player.hole8 = None
+        player.hole9 = None
+        player.hole10 = None
+        player.hole11 = None
+        player.hole12 = None
+        player.hole13 = None
+        player.hole14 = None
+        player.hole15 = None
+        player.hole16 = None
+        player.hole17 = None
+        player.hole18 = None
+        db.session.commit()
+
+
 def get_nine_score(player, db_player, modified_holes, range_):
     score = 0
     for i in range_:
