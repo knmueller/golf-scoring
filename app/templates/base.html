@@ -12,7 +12,7 @@
                 <a href="/login" style="float: right;">Login</a>
                 <a href="/help" style="float: right; margin-right: 10px;">Help</a>
             {% else %}
-                <a href="/logout" style="float: right; margin-right: 5px;">Logout</a>
+                <a href="/logout" style="float: right; margin-right: 5px;">Logout ({{ current_user.username }})</a>
                 <a href="/help" style="float: right; margin-right: 10px;">Help</a>
                 {% if current_user.role == 'admin' %}
                     <a href="/reset_pw" style="float: right; margin-right: 10px;">Reset Password</a>
