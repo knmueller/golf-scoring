@@ -69,8 +69,10 @@ X - highlight champ table hole winner in javascript
 X - sort front/back net tables with None last
 X - Best of Worst - net score not showing if only 1 player entered
 X - reset scores button for admin 
+- Fix championship match scoring
+- Add pages in the top bar to show individual tables 
 - refresh login timeout
 - Update results table titles and font
 - Add top/bottom table margins
+- unittests for flask
 - issues with multiple open pages trying to submit scores?
-- unittests for flask ?

@@ -1,0 +1,12 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          duckdns
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2
+# Default-Stop:
+# Short-Description: duckdns daemon
+# Description:       Init script for the duckdns daemon
+### END INIT INFO
+su - ubuntu -c "nohup ~/duckdns/duck.sh > ~/duckdns/duck.log 2>&1&"
+
