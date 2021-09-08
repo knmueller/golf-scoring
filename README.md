@@ -69,7 +69,7 @@ X - highlight champ table hole winner in javascript
 X - sort front/back net tables with None last
 X - Best of Worst - net score not showing if only 1 player entered
 X - reset scores button for admin 
-- Fix championship match scoring
+- Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop
 - Add pages in the top bar to show individual tables 
 - refresh login timeout
 - Update results table titles and font

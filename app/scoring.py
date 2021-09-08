@@ -206,7 +206,7 @@ def create_champ_match_table():
             display_score = False
             if hole_score:
                 display_score = True
-                hole_score -= player.get_hdcp_per_hole()[i - 1]
+                hole_score -= player.get_hdcp_per_hole()[h - 1]
             setattr(score_table_obj, hole, hole_score if display_score else None)
         champ_scores.append(score_table_obj)
 
