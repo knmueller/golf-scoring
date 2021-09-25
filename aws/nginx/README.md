@@ -40,3 +40,8 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 ```
+
+#### Enable the service
+```
+$ sudo systemctl enable golf-scoring-webapp
+```
