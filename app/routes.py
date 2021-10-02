@@ -22,7 +22,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data.lower()).first()
         if user is None or not user.check_password(form.password.data):
-            if user.password_hash is None:
+            if user and user.password_hash is None:
                 flash('No password set for this user. Please register.')
             else:
                 flash('Invalid username or password')
