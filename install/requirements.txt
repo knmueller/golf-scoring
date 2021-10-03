@@ -3,3 +3,4 @@ flask-login
 flask-migrate
 flask-table
 flask-wtf
+secure
