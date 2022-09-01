@@ -3,6 +3,7 @@
 ## Get certificate for nginx on Ubuntu
 
 ```shell
+$ sudo apt install nginx
 $ sudo apt search snapd
 $ sudo apt install snapd
 $ sudo snap install core; sudo snap refresh core
