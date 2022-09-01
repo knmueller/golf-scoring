@@ -76,3 +76,4 @@ X - reset scores button for admin <br>
 - Add top/bottom table margins <br>
 - unittests for flask <br>
 - issues with multiple open pages trying to submit scores? <br>
+- README duck-pi.sh
