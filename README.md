@@ -76,4 +76,8 @@ X - reset scores button for admin <br>
 - Add top/bottom table margins <br>
 - unittests for flask <br>
 - issues with multiple open pages trying to submit scores? <br>
+
+
+#### TODO 2022
+- Update players and teams
 - README duck-pi.sh
