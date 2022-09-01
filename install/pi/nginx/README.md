@@ -33,10 +33,10 @@ Put the following in `/etc/systemd/system/golf-scoring-webapp.service`
 Description=Gunicorn instance for a golf scoring webapp
 After=network.target
 [Service]
-User=ubuntu
+User=pi4
 Group=www-data
-WorkingDirectory=/home/ubuntu/project/golf-scoring
-ExecStart=/home/ubuntu/.local/bin/gunicorn --log-level debug -b localhost:8000 scoringapp:app
+WorkingDirectory=/home/pi4/project/golf-scoring
+ExecStart=/home/pi4/.local/bin/gunicorn --log-level debug -b localhost:8000 scoringapp:app
 Restart=always
 [Install]
 WantedBy=multi-user.target
