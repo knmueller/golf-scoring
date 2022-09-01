@@ -80,4 +80,5 @@ X - reset scores button for admin <br>
 
 #### TODO 2022
 - Update players and teams
+- Add new tie breaker
 - README duck-pi.sh
