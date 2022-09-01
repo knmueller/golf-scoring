@@ -1,9 +1,18 @@
 # NGINX howto
 
-## Get certificate for nginx on Ubuntu
+## Expose port 80 for nginx
 
 ```shell
 $ sudo apt install nginx
+```
+
+- On the router, port-forward port 80 for certbot/letsencrypt
+- port-forward 443 for web app
+- port-forward 22 for ssh to pi
+
+## Get certificate for nginx on Ubuntu
+
+```shell
 $ sudo apt search snapd
 $ sudo apt install snapd
 $ sudo snap install core; sudo snap refresh core
