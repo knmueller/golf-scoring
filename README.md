@@ -57,22 +57,22 @@ tables. There is also a "Results" link in the top bar to go directly to the Resu
 X - authentication / signup page <br>
 X - editing player scores allowed only for the player who is logged in <br>
 X - help page <br>
-X - reset password via admin page
-X - Fix submission bug
-X - Add admin user outside of kmueller
-X - Best Gross table -- no zeros
-X - Add table for Championship match -- gross scores
-X - add hole handicaps
-X - can add negative numbers to input field on scores
-X - calculate handicap match scores
-X - highlight champ table hole winner in javascript
-X - sort front/back net tables with None last
-X - Best of Worst - net score not showing if only 1 player entered
-X - reset scores button for admin 
-- Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop
-- Add pages in the top bar to show individual tables 
-- refresh login timeout
-- Update results table titles and font
-- Add top/bottom table margins
-- unittests for flask
-- issues with multiple open pages trying to submit scores?
+X - reset password via admin page <br>
+X - Fix submission bug <br>
+X - Add admin user outside of kmueller <br>
+X - Best Gross table -- no zeros <br>
+X - Add table for Championship match -- gross scores <br>
+X - add hole handicaps <br>
+X - can add negative numbers to input field on scores <br>
+X - calculate handicap match scores <br>
+X - highlight champ table hole winner in javascript <br>
+X - sort front/back net tables with None last <br>
+X - Best of Worst - net score not showing if only 1 player entered <br>
+X - reset scores button for admin <br>
+- Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop <br>
+- Add pages in the top bar to show individual tables <br>
+- refresh login timeout <br>
+- Update results table titles and font <br>
+- Add top/bottom table margins <br>
+- unittests for flask <br>
+- issues with multiple open pages trying to submit scores? <br>
