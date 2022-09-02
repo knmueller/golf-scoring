@@ -156,7 +156,7 @@ def hole_hdcp_for_player(player):
         else:
             course_hdcps = _MEN_COURSE_HDCP_
         hole_to_edit = course_hdcps.index(hdcp_to_edit + 1)
-        holes[hole_to_edit] += 1  # can do += here ?
+        holes[hole_to_edit] += 1
         hole_idx += 1
 
     print('hole hdcps {}'.format(holes))
