@@ -85,3 +85,4 @@ X - Add security response headers
 - Add new tiebreaker
 - README duck-pi.sh
 - calculate handicaps.
+- Add Handicap table link to top bar
