@@ -76,6 +76,7 @@ X - Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using t
 - Add top/bottom table margins <br>
 - unittests for flask <br>
 - issues with multiple open pages trying to submit scores? <br>
+--- don't think so? Tried 2 users in same 4some
 
 
 #### TODO 2022
