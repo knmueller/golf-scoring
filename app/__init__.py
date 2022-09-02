@@ -3,6 +3,8 @@ from config import Config
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from secure import Secure
+secure_headers = Secure()
 
 app = Flask(__name__, static_url_path='/app/static')
 app.config.from_object(Config)
@@ -22,3 +24,9 @@ def create_tables():
     db.create_all()
     from app.models import init_defaults
     init_defaults()
+
+
+@app.after_request
+def set_secure_headers(response):
+    secure_headers.framework.flask(response)
+    return response

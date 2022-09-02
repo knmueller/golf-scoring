@@ -69,7 +69,7 @@ X - highlight champ table hole winner in javascript <br>
 X - sort front/back net tables with None last <br>
 X - Best of Worst - net score not showing if only 1 player entered <br>
 X - reset scores button for admin <br>
-- Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop <br>
+X - Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop <br>
 - Add pages in the top bar to show individual tables <br>
 - refresh login timeout <br>
 - Update results table titles and font <br>
@@ -80,6 +80,7 @@ X - reset scores button for admin <br>
 
 #### TODO 2022
 X - Update players and teams
-- Add new tie breaker
+X - Add security response headers
+- Add new tiebreaker
 - README duck-pi.sh
 - calculate handicaps.
