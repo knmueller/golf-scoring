@@ -191,10 +191,9 @@ def get_hdcp_row(name, hdcp_list):
 def create_champ_match_table():
     team1, team2, p1, p2, p3, p4 = get_foursome(5)
     players = (p1, p2, p3, p4)
-    champ_scores = []
+    champ_scores = [get_hdcp_row('Men\'s Handicap', _MEN_COURSE_HDCP_)]
 
     # add men's hdcp as a row
-    champ_scores.append(get_hdcp_row('Men\'s Handicap', _MEN_COURSE_HDCP_))
 
     for i in range(0, 4):
         player = players[i]

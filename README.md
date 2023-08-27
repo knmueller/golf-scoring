@@ -32,7 +32,7 @@ Instance: /Users/kyle/project/golf-scoring/instance
 >>> print(teams)
 [<1 Team Watch Out For I.T.>, <2 Team Yin and Yang>, <3 Team 2 Balls 1 Cup>, <4 Team The Olson Twins>, <5 Team One A-Holer>, <6 Team No beer cart no prob>, <7 Team C & C Gang>, <8 Team Gone Not Forgotten>, <9 Team Portuguese Rolls>, <10 Team Positive Vibes>]
 >>> print(players)
-[<1 Player Adams, Dave>, <2 Player Audi, Rob>, <3 Player Carle, Andy>, <4 Player Champagne, Tim>, <5 Player Denlinger, Dave>, <6 Player DeOliveira, Fernando>, <7 Player Ettenhofer, Todd>, <8 Player Ferreira, Tom>, <9 Player Flanagan, Dave>, <10 Player Hurley, Jim>, <11 Player Kelley, Connor>, <12 Player McLaughin, Ivonne>, <13 Player McLaughin, Mark-David>, <14 Player Merritt, Chad>, <15 Player Mueller, Kyle>, <16 Player Tillotson, Paul>, <17 Player Vincent, Shawn>, <18 Player Wante, Ken>, <19 Player Wante, Nathan>, <20 Player White, Justin>]
+[<1 Player Adams, Dave>, <2 Player Audi, Rob>, <3 Player Carle, Andy>, <4 Player Champagne, Tim>, <5 Player Denlinger, Dave>, <6 Player DeOliveira, Fernando>, <7 Player Ettenhofer, Todd>, <8 Player Ferreira, Tom>, <9 Player Flanagan, Dave>, <10 Player Hurley, Jim>, <11 Player Kelley, Connor>, <12 Player McLaughlin, Ivonne>, <13 Player McLaughlin, Mark-David>, <14 Player Merritt, Chad>, <15 Player Mueller, Kyle>, <16 Player Tillotson, Paul>, <17 Player Vincent, Shawn>, <18 Player Wante, Ken>, <19 Player Wante, Nathan>, <20 Player White, Justin>]
 >>> print(teams[0])
 <1 Team Watch Out For I.T.>
 >>> print(teams[0].player_one)
@@ -86,3 +86,6 @@ X - Add security response headers
 - README duck-pi.sh
 - calculate handicaps.
 - Add Handicap table link to top bar
+
+#### TODO 2023
+- Remove player name as key to everything

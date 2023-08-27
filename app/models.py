@@ -1,6 +1,10 @@
+import math
+
 from app import db, login
 from flask_login import UserMixin
-from initial_data import _HANDICAPS_, _HANDICAP_INDICES_NINE_HOLES_, _PLAYERS_, _TEAMS_, _MEN_COURSE_HDCP_, _WOMEN_COURSE_HDCP_
+from initial_data import _HANDICAP_INDICES_NINE_HOLES_, _PLAYERS_, _TEAMS_, _MEN_COURSE_HDCP_, \
+    _WOMEN_COURSE_HDCP_, HIGHFIELDS_GOLD_FRONT_RATING, HIGHFIELDS_WHITE_FRONT_RATING, HIGHFIELDS_GREEN_FRONT_RATING, \
+    HIGHFIELDS_GOLD_BACK_RATING, HIGHFIELDS_WHITE_BACK_RATING, HIGHFIELDS_GREEN_BACK_RATING, HIGHFIELDS_FRONT_PAR
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -110,14 +114,40 @@ def init_players():
             user = User.query.filter_by(username=username).first()
             if user is None:
                 raise Exception('User not found in user table with username "{}"'.format(username))
-            hdcp_front = _HANDICAPS_[name][0]
-            hdcp_back = _HANDICAPS_[name][1]
+
+            front_rating = {
+                'gold': HIGHFIELDS_GOLD_FRONT_RATING,
+                'white': HIGHFIELDS_WHITE_FRONT_RATING,
+                'green': HIGHFIELDS_GREEN_FRONT_RATING
+            }[tee]
+
+            back_rating = {
+                'gold': HIGHFIELDS_GOLD_BACK_RATING,
+                'white': HIGHFIELDS_WHITE_BACK_RATING,
+                'green': HIGHFIELDS_GREEN_BACK_RATING
+            }[tee]
+
+            hdcp_front = calculate_nine_hole_handicap(_HANDICAP_INDICES_NINE_HOLES_[name],
+                                                      front_rating,
+                                                      HIGHFIELDS_FRONT_PAR)  # _HANDICAPS_[name][0]
+            hdcp_back = calculate_nine_hole_handicap(_HANDICAP_INDICES_NINE_HOLES_[name],
+                                                     back_rating,
+                                                     HIGHFIELDS_FRONT_PAR)  # _HANDICAPS_[name][1]
             hdcp_total = hdcp_front + hdcp_back
+            print(f'calculated handicaps for {name} with tee {tee}: {hdcp_front}, {hdcp_back}, {hdcp_total}')
             hdcp_index_nine = str(_HANDICAP_INDICES_NINE_HOLES_[name])
-            player = Player(name=name, user_id=user.id, hdcp_front=hdcp_front, hdcp_back=hdcp_back, hdcp_total=hdcp_total,
+            player = Player(name=name, user_id=user.id, hdcp_front=hdcp_front, hdcp_back=hdcp_back,
+                            hdcp_total=hdcp_total,
                             hdcp_index_nine=hdcp_index_nine, tee=tee)
             db.session.add(player)
         db.session.commit()
+
+
+def calculate_nine_hole_handicap(player_index, rating, par):
+    # Handicap Index × (Slope Rating ÷ 113) + (Course Rating – Par)
+    # apparently python3 switched to a "banker's round", which rounds to the nearest even number, even if the decimal
+    # is >= .5. Instead, add .5 and floor
+    return math.floor((player_index * rating[1] / 113) + (rating[0] - par) + .5)
 
 
 def init_teams():
@@ -136,8 +166,9 @@ def init_teams():
             db.session.commit()
             p1.team_id = team.id
             p2.team_id = team.id
-            print("p1 {} - team {}".format(p1, p1.team_id))
+            print("p2 {} - team {}".format(p2, p2.team_id))
             # commit so we don't lose the player data on the next loop?
+            db.session.add_all([p1, p2])
             db.session.commit()
 
 
@@ -151,7 +182,7 @@ def hole_hdcp_for_player(player):
         hdcp_to_edit = (hole_idx % 18)
         # find which hole to modify the hdcp for. hdcp_to_edit is 0 based and the course handicap numbers are 1
         # based, so add 1
-        if player.tee == 'red':
+        if player.tee == 'green':
             course_hdcps = _WOMEN_COURSE_HDCP_
         else:
             course_hdcps = _MEN_COURSE_HDCP_
