@@ -124,7 +124,7 @@ def create_team_table(players):
         # player id is 1 based where the player list is 0 based, so -1 on the index for the correct player
         player_one = players[team.player_one - 1]
         player_two = players[team.player_two - 1]
-        table_name = '{} ({}, {})'.format(team.name, player_one.name, player_two.name)
+        table_name = '{} ({} & {})'.format(team.name, player_one.name, player_two.name)
         team_scores.append(TeamNetScore(table_name, player_one.total_net_score, player_two.total_net_score))
         print('TEAM p1 {}; gross = {} netscore = {}'.format(player_one.name, player_one.total_score, player_one.total_net_score))
 
