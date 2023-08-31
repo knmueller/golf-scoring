@@ -128,7 +128,7 @@ def root():
         for player in players:
             print('adding player to form {}'.format(player))
             form = PlayerScoreForm()
-            form.player_name = str(player.name)
+            form.player_name = f'{player.name} ({player.hdcp_front}, {player.hdcp_back})'
             for i in range(1, 19):
                 add_hole(i, form, player)
             league.players.append_entry(form)
