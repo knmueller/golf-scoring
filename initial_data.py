@@ -22,15 +22,15 @@ _PLAYERS_ = [('Audi, Rob', 'raudi', 'Robert.Audi@fmr.com', 'gold'),
 
 _TEAMS_ = {
     "Bald Eagles": ("Audi, Rob", "Ettenhofer, Todd", 1),
-    "X-Out": ("Wante, Ken", "Carle, Andy", 1),
-    "Beauty & Beast Mode": ("Merritt, Chad", "Tillotson, Paul", 2),
-    "MF": ("Mueller, Kyle", "Flanagan, Dave", 2),
-    "Pound & Pound": ("Levi, Jonas", "White, Justin", 3),
-    "Salt n Pepa": ("McLaughlin, Ivonne", "Hurley, Jim", 3),
-    "Deez Nuts": ("Wante, Nathan", "ODea, Mike", 4),
-    "Guiness Guys": ("Magley, Dale", "DeOliveira, Fernando", 4),
-    "Couple of Putts": ("Ferreira, Tom", "McLaughlin, MarkDavid", 5),
-    "Thunder Buddies": ("Champagne, Tim", "Denlinger, Dave", 5)
+    "Beauty & Beast Mode": ("Merritt, Chad", "Tillotson, Paul", 1),
+    "Guiness Guys": ("Magley, Dale", "DeOliveira, Fernando", 2),
+    "Pound & Pound": ("Levi, Jonas", "White, Justin", 2),
+    "X-Out": ("Wante, Ken", "Carle, Andy", 3),
+    "Deez Nuts": ("Wante, Nathan", "ODea, Mike", 3),
+    "MF": ("Mueller, Kyle", "Flanagan, Dave", 4),
+    "Couple of Putts": ("Ferreira, Tom", "McLaughlin, MarkDavid", 4),
+    "Thunder Buddies": ("Champagne, Tim", "Denlinger, Dave", 5),
+    "Salt n Pepa": ("McLaughlin, Ivonne", "Hurley, Jim", 5)
 }
 
 # Handicap Index × (Slope Rating ÷ 113) + (Course Rating – Par)
