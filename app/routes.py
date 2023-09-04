@@ -8,6 +8,8 @@ from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, 
 from app.models import Player, User, Team
 from app.scoring import save_players, create_scoring_tables, reset_all_scores
 
+INIT = False
+
 
 def add_hole(num, form, player):
     hole_score = getattr(player, 'hole{}'.format(num))
@@ -16,6 +18,17 @@ def add_hole(num, form, player):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
+    global INIT
+    if not INIT:
+        # This was in @app.before_first_request (see app/__init__.py). This may be a potential solution instead
+        # https://stackoverflow.com/a/74629704
+        db.create_all()
+        from app.models import init_defaults
+        init_defaults()
+        # create_tables()
+        INIT = True
+
     if current_user.is_authenticated:
         return redirect('/')
     form = LoginForm()

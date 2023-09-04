@@ -89,3 +89,4 @@ X - Add security response headers
 
 #### TODO 2023
 - Remove player name as key to everything
+- replace @app.before_first_request

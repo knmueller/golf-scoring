@@ -78,6 +78,8 @@ def save_players(league):
     # Build a map of name to list of holes. Only store/save the modified holes on this form submission
     modified = modified.split('; ')
     modified = [m.split('-') for m in modified]
+
+    print(f'Modified {modified}')
     for m in modified:
         name = m[0]
         hole = m[1]
@@ -93,7 +95,11 @@ def save_players(league):
         if player_name not in modified_players_holes.keys():
             continue
 
-        db_player = Player.query.filter_by(name=player_name).first()
+        namesplit = player_name.split(' ')
+        db_player_name = ' '.join(namesplit[:2])
+        print(f'name {player_name}')
+
+        db_player = Player.query.filter_by(name=db_player_name).first()
         print("Saving player {}; dbplayer {}".format(player_name, db_player))
         save_player(player, db_player, modified_players_holes[player_name])
     db.session.commit()

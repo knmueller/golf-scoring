@@ -18,7 +18,7 @@ login.login_view = 'login'
 from app import routes, models
 
 
-@app.before_first_request
+# @app.before_first_request
 def create_tables():
     """Initialize tables"""
     db.create_all()
