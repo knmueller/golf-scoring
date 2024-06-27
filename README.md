@@ -30,15 +30,15 @@ Instance: /Users/kyle/project/golf-scoring/instance
 >>> players = Player.query.all()
 >>> teams = Team.query.all()
 >>> print(teams)
-[<1 Team Watch Out For I.T.>, <2 Team Yin and Yang>, <3 Team 2 Balls 1 Cup>, <4 Team The Olson Twins>, <5 Team One A-Holer>, <6 Team No beer cart no prob>, <7 Team C & C Gang>, <8 Team Gone Not Forgotten>, <9 Team Portuguese Rolls>, <10 Team Positive Vibes>]
+[<1 Team Watch Out For I.T.>, <2 Team Yin and Yang>, <3 Team In The Cup>, <4 Team The Olson Twins>, <5 Team One A-Holer>, <6 Team No cart no prob>, <7 Team C & C Gang>, <8 Team Gone Not Forgotten>, <9 Team Portuguese Rolls>, <10 Team Positive Vibes>]
 >>> print(players)
-[<1 Player Adams, Dave>, <2 Player Audi, Rob>, <3 Player Carle, Andy>, <4 Player Champagne, Tim>, <5 Player Denlinger, Dave>, <6 Player DeOliveira, Fernando>, <7 Player Ettenhofer, Todd>, <8 Player Ferreira, Tom>, <9 Player Flanagan, Dave>, <10 Player Hurley, Jim>, <11 Player Kelley, Connor>, <12 Player McLaughlin, Ivonne>, <13 Player McLaughlin, Mark-David>, <14 Player Merritt, Chad>, <15 Player Mueller, Kyle>, <16 Player Tillotson, Paul>, <17 Player Vincent, Shawn>, <18 Player Wante, Ken>, <19 Player Wante, Nathan>, <20 Player White, Justin>]
+[<1 Player ..>, <2 Player ..>, <3 Player ..>, <4 Player ..>, <5 Player ..>, <6 Player ..>, <7 Player ..>, <8 Player ..>, <9 Player ..>, <10 Player ..>, <11 Player ..>, <12 Player ..>, <13 Player ..>, <14 Player ..>, <15 Player ..>, <16 Player ..>, <17 Player ..>, <18 Player ..>, <19 Player ..>, <20 Player ..>]
 >>> print(teams[0])
 <1 Team Watch Out For I.T.>
 >>> print(teams[0].player_one)
 7
 >>> print(players[6])
-<7 Player Ettenhofer, Todd>
+<7 Player ..>
 ```
 
 ### Entering Scores
@@ -69,15 +69,11 @@ X - highlight champ table hole winner in javascript <br>
 X - sort front/back net tables with None last <br>
 X - Best of Worst - net score not showing if only 1 player entered <br>
 X - reset scores button for admin <br>
-X - Fix championship match scoring -> CONFIRM -- i think i fixed it. Was using the wrong index in the nested for loop <br>
+X - Fix championship match scoring <br>
 - Add pages in the top bar to show individual tables <br>
 - refresh login timeout <br>
 - Update results table titles and font <br>
 - Add top/bottom table margins <br>
-- unittests for flask <br>
-- issues with multiple open pages trying to submit scores? <br>
---- don't think so? Tried 2 users in same 4some
-
 
 #### TODO 2022
 X - Update players and teams
