@@ -1,12 +1,11 @@
 from flask import render_template, request, send_file, flash, url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from werkzeug.urls import url_parse
 from werkzeug.utils import redirect
 
 from app import app, db
 from app.forms import LeagueForm, LoginForm, PlayerScoreForm, RegistrationForm, ResetPasswordForm, ResetScoresForm
 from app.models import Player, User, Team
-from app.scoring import save_players, create_scoring_tables, reset_all_scores
+from app.scoring import save_players, create_scoring_tables, reset_all_scores, create_handicap_list_table
 
 INIT = False
 
@@ -18,7 +17,6 @@ def add_hole(num, form, player):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     global INIT
     if not INIT:
         # This was in @app.before_first_request (see app/__init__.py). This may be a potential solution instead
@@ -30,6 +28,7 @@ def login():
         INIT = True
 
     if current_user.is_authenticated:
+        print("user is authenticated")
         return redirect('/')
     form = LoginForm()
     if form.validate_on_submit():
@@ -41,9 +40,7 @@ def login():
                 flash('Invalid username or password')
             return redirect('/login')
         login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = '/'
+        next_page = request.args.get('next') if request.args.get('next') else '/'
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
@@ -155,6 +152,13 @@ def calc():
     front_table, back_table, total_table, team_table, team_best_gross_table, champ_match_table = create_scoring_tables()
     return render_template('display_scores.html', front=front_table, back=back_table, total=total_table,
                            team=team_table, best_gross=team_best_gross_table, champ_match_table=champ_match_table)
+
+
+@app.route("/handicaps")
+@login_required
+def handicaps():
+    hdcp_table = create_handicap_list_table()
+    return render_template('handicap_list.html', hdcp=hdcp_table)
 
 
 @app.route("/static/loadingimage.gif")

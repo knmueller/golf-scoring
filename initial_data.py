@@ -1,87 +1,42 @@
-_PLAYERS_ = [('Audi, Rob', 'raudi', 'Robert.Audi@fmr.com', 'gold'),
-             ('Carle, Andy', 'acarle', 'andyc66@gmail.com', 'gold'),
-             ('Champagne, Tim', 'tchampagne', 'tchampagne@bluecedar.com', 'gold'),
-             ('Denlinger, Dave', 'ddenlinger', 'd.denlinger@verizon.net', 'white'),
-             ('DeOliveira, Fred', 'fdeoliveira', 'Fernando.DeOliveira@viasat.com', 'gold'),
-             ('Ettenhofer, Todd', 'tettenhofer', 'Todd.Ettenhofer@viasat.com', 'gold'),
-             ('Ferreira, Tom', 'tferreira', 'tom.ferreira@commscope.com', 'gold'),
-             ('Flanagan, Dave', 'dflanagan', 'davidrflan@gmail.com', 'white'),
-             ('Hurley, Jim', 'jhurley', 'jhurley@bluecedar.com', 'gold'),
-             ('Levi, Jonas', 'jlevi', 'jonaslevi05@gmail.com', 'gold'),
-             ('Magley, Dale', 'dmagley', 'dmmagley@gmail.com', 'gold'),
-             ('McLaughlin, Ivonne', 'imclaughlin', 'ivonne.mclaughlin@gmail.com', 'green'),
-             ('McLaughlin, MD', 'mmclaughlin', 'mdjmcl@gmail.com', 'gold'),
-             ('Merritt, Chad', 'cmerritt', 'cmerritt@monogramfoods.com', 'gold'),
-             ('Mueller, Kyle', 'kmueller', 'kmueller@bluecedar.com', 'gold'),
-             ('ODea, Mike', 'modea', 'mikeodea19@gmail.com', 'gold'),
-             ('Tillotson, Paul', 'ptillotson', 'ptillotson@bluecedar.com', 'gold'),
-             ('Wante, Ken', 'kwante', 'kjwante@gmail.com', 'gold'),
-             ('Wante, Nathan', 'nwante', 'npwante@gmail.com', 'gold'),
-             ('White, Justin', 'jwhite', 'justin@thewhitefoxes.com', 'gold')
-             ]
+# list format: name, username, email, tee name, 9-hold-handicap-index
+_USERS_ = [
+    ('Boice, Rob', 'rboice', 'boicer17@gmail.com', 'gold', 9.3),  # 1
+    ('Carle, Andy', 'acarle', 'andyc66@gmail.com', 'gold', 8.7),  # 2
+    ('Champagne, Tim', 'tchampagne', 'tchamp@champagnesoftware.com', 'gold', 10.3),  # 3
+    ('Denlinger, Dave', 'ddenlinger', 'd.denlinger@verizon.net', 'white', 16.2),  # 4
+    ('ForFred, Sub', 'sub', 'todo@todo.com', 'gold', 9.1),  # 5
+    ('Ettenhofer, Todd', 'tettenhofer', 'Todd.Ettenhofer@viasat.com', 'gold', 5.9),  # 6
+    ('Ferreira, Tom', 'tferreira', 'tom.ferreira@commscope.com', 'gold', 4.9),  # 7
+    ('Flanagan, Dave', 'dflanagan', 'davidrflan@gmail.com', 'white', 13.6),  # 8
+    ('Magley, Dale', 'dmagley', 'dmmagley@gmail.com', 'gold', 6.9),  # 9
+    ('McLaughlin, Ivonne', 'imclaughlin', 'ivonne.mclaughlin@gmail.com', 'green', 11.2),  # 10
+    ('McLaughlin, MD', 'mmclaughlin', 'mdjmcl@gmail.com', 'gold', 11.8),  # 11
+    ('Merritt, Chad', 'cmerritt', 'cmerritt@monogramfoods.com', 'gold', 4.0),  # 12
+    ('Mueller, Kyle', 'kmueller', 'k.mueller17@gmail.com', 'gold', 8.3),  # 13
+    ('Olson, Mark', 'molson', 'mcolson513@gmail.com', 'gold', 9.8),  # 14
+    ('Priest, John', 'jpriest', 'johnpriest@verizon.net', 'gold', 10.2),  # 15
+    ('Tillotson, Paul', 'ptillotson', 'paul.tillotson@gmail.com', 'gold', 17.7),  # 16
+    ('Wante, Ken', 'kwante', 'kjwante@gmail.com', 'gold', 8.4),  # 17
+    ('Wante, Nathan', 'nwante', 'npwante@gmail.com', 'gold', 7.2),  # 18
+    ('Wesley, Anne', 'awesley', 'awesley@protonmail.com', 'green', 20.2),  # 19
+    ('White, Justin', 'jwhite', 'justin@thewhitefoxes.com', 'gold', 9.5),  # 20
+    # ('Levi, Jonas', 'jlevi', 'jonaslevi05@gmail.com', 'gold'),
+]
 
 _TEAMS_ = {
-    "Bald Eagles": ("Audi, Rob", "Ettenhofer, Todd", 1),
-    "Beauty & Beast Mode": ("Merritt, Chad", "Tillotson, Paul", 1),
-    "Guiness Guys": ("Magley, Dale", "DeOliveira, Fred", 2),
-    "Pound & Pound": ("Levi, Jonas", "White, Justin", 2),
-    "X-Out": ("Wante, Ken", "Carle, Andy", 3),
-    "Deez Nuts": ("Wante, Nathan", "ODea, Mike", 3),
-    "MF": ("Mueller, Kyle", "Flanagan, Dave", 4),
-    "Couple of Putts": ("Ferreira, Tom", "McLaughlin, MD", 4),
-    "Thunder Buddies": ("Champagne, Tim", "Denlinger, Dave", 5),
-    "Salt n Pepa": ("McLaughlin, Ivonne", "Hurley, Jim", 5)
+    'Iron Faden': (2, 16, 1),
+    'Liver Let Die': (20, 11, 1),
+    'I\'d Tap That': (13, 14, 2),
+    'Bogey Boys': (18, 3, 2),
+    'Rise and Grind': (6, 1, 3),
+    'Salt and Pepper': (9, 10, 3),  # 'Magley, Dale', 'McLaughlin, Ivonne'
+    'Fairway to Heaven': (17, 8, 4),  # 'Wante, Ken', 'Flanagan, Dave'
+    'The Olde RT Gang': (12, 5, 4),  # 'Merritt, Chad', 'ForFred, Sub'
+    'Silver Foxes': (19, 4, 5),  # 'Wesley, Anne', 'Denlinger, Dave'
+    'Team 1': (7, 15, 5)  # 'Ferreira, Tom', 'Priest, John'
 }
 
-# Handicap Index × (Slope Rating ÷ 113) + (Course Rating – Par)
-
-_HANDICAP_INDICES_NINE_HOLES_ = {
-    "Audi, Rob": 12.8,
-    "Carle, Andy": 9.0,
-    "Champagne, Tim": 10.3,
-    "Denlinger, Dave": 15.1,
-    "DeOliveira, Fred": 11.3,
-    "Ettenhofer, Todd": 5.2,
-    "Ferreira, Tom": 5.7,
-    "Flanagan, Dave": 13.1,
-    "Hurley, Jim": 10.8,
-    "Levi, Jonas": 9.1,
-    "Magley, Dale": 7.0,
-    "McLaughlin, Ivonne": 10.6,
-    "McLaughlin, MD": 15.2,
-    "Merritt, Chad": 5.6,
-    "Mueller, Kyle": 7.7,
-    "ODea, Mike": 4.0,
-    "Tillotson, Paul": 14.5,
-    "Wante, Ken": 9.0,
-    "Wante, Nathan": 9.9,
-    "White, Justin": 10.1
-}
-
-# player name : (front handicap, back handicap)
-# TODO dont think i need this anymore. Now calculating the handicaps
-_HANDICAPS_ = {
-    "Audi, Rob": (14, 14),
-    "Carle, Andy": (13, 12),
-    "Champagne, Tim": (12, 12),
-    "Denlinger, Dave": (16, 16),
-    "DeOliveira, Fred": (13, 13),
-    "Ettenhofer, Todd": (7, 6),
-    "Ferreira, Tom": (7, 7),
-    "Flanagan, Dave": (15, 14),
-    "Hurley, Jim": (13, 12),
-    "Levi, Jonas": (11, 10),
-    "McLaughlin, Ivonne": (13, 12),
-    "McLaughlin, MD": (19, 19),
-    "Merritt, Chad": (9, 9),
-    "Mueller, Kyle": (9, 8),
-    "Olson, Mark": (18, 17),
-    "Tillotson, Paul": (18, 17),
-    "Vincent, Shawn": (25, 25),
-    "Wante, Ken": (11, 11),
-    "Wante, Nathan": (12, 11),
-    "White, Justin": (12, 12)
-}
+# Course Handicap = Handicap Index × (Slope Rating ÷ 113) + (Course Rating – Par)
 
 # 2021 hole handicaps
 _MEN_COURSE_HDCP_ = [

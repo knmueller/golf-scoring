@@ -2,7 +2,7 @@ import math
 
 from app import db, login
 from flask_login import UserMixin
-from initial_data import _HANDICAP_INDICES_NINE_HOLES_, _PLAYERS_, _TEAMS_, _MEN_COURSE_HDCP_, \
+from initial_data import _USERS_, _TEAMS_, _MEN_COURSE_HDCP_, \
     _WOMEN_COURSE_HDCP_, HIGHFIELDS_GOLD_FRONT_RATING, HIGHFIELDS_WHITE_FRONT_RATING, HIGHFIELDS_GREEN_FRONT_RATING, \
     HIGHFIELDS_GOLD_BACK_RATING, HIGHFIELDS_WHITE_BACK_RATING, HIGHFIELDS_GREEN_BACK_RATING, HIGHFIELDS_FRONT_PAR
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -97,11 +97,11 @@ def init_users():
     users = User.query.all()
     if users is None or len(users) == 0:
         print("Adding all users")
-        for name, username, email, tee in _PLAYERS_:
+        for name, username, email, tee, nine_index in _USERS_:
             print("Adding user {}".format(name))
             user = User(username=username, email=email, role='user')
             db.session.add(user)
-        db.session.add(User(username='admin', email='kmueller+admin@bluecedar.com', role='admin'))
+        db.session.add(User(username='admin', email='k.mueller17+admin@gmail.com', role='admin'))
         db.session.commit()
 
 
@@ -109,7 +109,7 @@ def init_players():
     players = Player.query.all()
     if players is None or len(players) == 0:
         print("Adding all players")
-        for name, username, email, tee in _PLAYERS_:
+        for name, username, email, tee, nine_index in _USERS_:
             print("Adding player {}".format(name))
             user = User.query.filter_by(username=username).first()
             if user is None:
@@ -127,15 +127,15 @@ def init_players():
                 'green': HIGHFIELDS_GREEN_BACK_RATING
             }[tee]
 
-            hdcp_front = calculate_nine_hole_handicap(_HANDICAP_INDICES_NINE_HOLES_[name],
+            hdcp_front = calculate_nine_hole_handicap(nine_index,
                                                       front_rating,
-                                                      HIGHFIELDS_FRONT_PAR)  # _HANDICAPS_[name][0]
-            hdcp_back = calculate_nine_hole_handicap(_HANDICAP_INDICES_NINE_HOLES_[name],
+                                                      HIGHFIELDS_FRONT_PAR)
+            hdcp_back = calculate_nine_hole_handicap(nine_index,
                                                      back_rating,
-                                                     HIGHFIELDS_FRONT_PAR)  # _HANDICAPS_[name][1]
+                                                     HIGHFIELDS_FRONT_PAR)
             hdcp_total = hdcp_front + hdcp_back
             print(f'calculated handicaps for {name} with tee {tee}: {hdcp_front}, {hdcp_back}, {hdcp_total}')
-            hdcp_index_nine = str(_HANDICAP_INDICES_NINE_HOLES_[name])
+            hdcp_index_nine = str(nine_index)
             player = Player(name=name, user_id=user.id, hdcp_front=hdcp_front, hdcp_back=hdcp_back,
                             hdcp_total=hdcp_total,
                             hdcp_index_nine=hdcp_index_nine, tee=tee)
@@ -156,16 +156,16 @@ def init_teams():
         print("Adding all teams")
         for name, players_and_foursome in _TEAMS_.items():
             print("Adding team {}".format(name))
-            p1 = Player.query.filter_by(name=players_and_foursome[0]).first()
-            p2 = Player.query.filter_by(name=players_and_foursome[1]).first()
+            p1 = Player.query.filter_by(user_id=players_and_foursome[0]).first()
+            p2 = Player.query.filter_by(user_id=players_and_foursome[1]).first()
             foursome = players_and_foursome[2]
             team = Team(name=name, player_one=p1.id, player_two=p2.id, foursome=foursome)
             db.session.add(team)
-            print("p1 {} - team {}".format(p1, p1.team_id))
             # commit to DB so we get an id from the entry
             db.session.commit()
             p1.team_id = team.id
             p2.team_id = team.id
+            print("p1 {} - team {}".format(p1, p1.team_id))
             print("p2 {} - team {}".format(p2, p2.team_id))
             # commit so we don't lose the player data on the next loop?
             db.session.add_all([p1, p2])

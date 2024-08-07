@@ -1,0 +1,40 @@
+diff --git "a/.\\venv\\Lib\\site-packages\\flask_table\\table.py" "b/.\\table-updated.py"
+index 9495e6e..a70324e 100644
+--- "a/.\\venv\\Lib\\site-packages\\flask_table\\table.py"
++++ "b/.\\table-updated.py"
+@@ -2,7 +2,7 @@
+ from __future__ import unicode_literals
+ from collections import OrderedDict
+
+-from flask import Markup
++from markupsafe import Markup
+ from flask_babel import gettext as _
+
+ from .columns import Col
+
+ diff --git "a/.\\venv\\Lib\\site-packages\\flask_table\\columns.py" "b/.\\columns-updated.py"
+index 5ae1558..fc74d24 100644
+--- "a/.\\venv\\Lib\\site-packages\\flask_table\\columns.py"
++++ "b/.\\columns-updated.py"
+@@ -1,7 +1,6 @@
+ from __future__ import unicode_literals
+
+-from flask import url_for
+-from markupsafe import Markup
++from flask import Markup, url_for
+ from babel.dates import format_date, format_datetime
+ from flask_babel import gettext as _
+
+diff --git "a/.\\venv\\Lib\\site-packages\\flask_table\\html.py" "b/.\\html-updated.py"
+index 9edb87a..f9ca78b 100644
+--- "a/.\\venv\\Lib\\site-packages\\flask_table\\html.py"
++++ "b/.\\html-updated.py"
+@@ -2,7 +2,7 @@
+ from __future__ import unicode_literals
+ from functools import partial
+
+-from markupsafe import Markup
++from flask import Markup
+
+
+ def element(element, attrs=None, content='',

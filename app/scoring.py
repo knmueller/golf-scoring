@@ -3,7 +3,7 @@ from flask_table import Col
 from app import db
 from app.models import Player, Team
 from app.tables import PlayerScore, PlayerScoreTable, TeamNetScore, TeamNetTable, TeamBestGrossScore, \
-    TeamBestGrossTable, ChampMatchScore, ChampMatchTable
+    TeamBestGrossTable, ChampMatchScore, ChampMatchTable, HandicapListEntry, HandicapListTable
 from initial_data import _MEN_COURSE_HDCP_, _WOMEN_COURSE_HDCP_
 
 
@@ -229,3 +229,16 @@ def create_scoring_tables():
     team_best_gross_table = create_team_best_gross_table()
     champ_match_table = create_champ_match_table()
     return front_table, back_table, total_table, team_table, team_best_gross_table, champ_match_table
+
+
+def create_handicap_list_table():
+    players = Player.query.all()
+    list_entries = []
+    for player in players:
+        list_entries.append(HandicapListEntry(player))
+
+    # front_scores = sorted(front_scores, key=lambda score: (score.net_score is None, score.net_score))
+    # back_scores = sorted(back_scores, key=lambda score: (score.net_score is None, score.net_score))
+    # total_scores = sorted(total_scores, key=lambda score: (score.net_score is None, score.net_score))
+    return HandicapListTable(list_entries, table_id='hdcp-list')
+

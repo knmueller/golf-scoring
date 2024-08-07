@@ -79,7 +79,7 @@ class ChampMatchTable(Table):
     classes = ['scoring_table']
     name = Col('Player', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
     # dynamic columns
-        # holes 1 through 18 - (score1, score2, score3) sum
+    # holes 1 through 18 - (score1, score2, score3) sum
 
     def get_thead_attrs(self):
         return {'class': 'table__header'}
@@ -91,3 +91,27 @@ class ChampMatchTable(Table):
 class ChampMatchScore(object):
     def __init__(self, name):
         self.name = name
+
+
+class HandicapListTable(Table):
+    classes = ['scoring_table']
+    name = Col('Player', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+    hdcp_index_nine = Col('Index (9-holes)', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+    hdcp_front = Col('Handicap (front)', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+    hdcp_back = Col('Handicap (back)', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+    hdcp_total = Col('Handicap (total)', td_html_attrs={'class': 'table__cell'}, th_html_attrs={'class': 'table__cell'})
+
+    def get_thead_attrs(self):
+        return {'class': 'table__header'}
+
+    def get_tr_attrs(self, item):
+        return {'class': 'table__row'}
+
+
+class HandicapListEntry(object):
+    def __init__(self, player):
+        self.name = player.name
+        self.hdcp_index_nine = player.hdcp_index_nine
+        self.hdcp_front = player.hdcp_front
+        self.hdcp_back = player.hdcp_back
+        self.hdcp_total = player.hdcp_total

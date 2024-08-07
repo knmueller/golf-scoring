@@ -44,13 +44,13 @@ Instance: /Users/kyle/project/golf-scoring/instance
 ### Entering Scores
 The home page of the app is used to enter scores for every player. Here is an example screenshot:
 
-![Entering Score](screenshots/entering-scores-screenshot.jpg?raw=true "Entering Scores")
+![Entering Score](/screenshots/entering-scores-screenshot.jpg?raw=true "Entering Scores")
 
 ### Viewing Results
 Once the scores are entered, the user clicks the Submit button. All of the scoring will be calculated and displayed in 
 tables. There is also a "Results" link in the top bar to go directly to the Results tables. Here is an example of that page:
 
-![Viewing Results](screenshots/viewing-results-screenshot.jpg?raw=true "Viewing Results")
+![Viewing Results](/screenshots/viewing-results-screenshot.jpg?raw=true "Viewing Results")
 
 
 #### TODO
@@ -76,13 +76,17 @@ X - Fix championship match scoring <br>
 - Add top/bottom table margins <br>
 
 #### TODO 2022
-X - Update players and teams
-X - Add security response headers
-- Add new tiebreaker
-- README duck-pi.sh
-- calculate handicaps.
-- Add Handicap table link to top bar
+X - Update players and teams <br>
+X - Add security response headers <br>
+- Add new tiebreaker <br>
+- README duck-pi.sh <br>
+X - calculate handicaps. <br>
+X - Add Handicap table link to top bar <br>
 
 #### TODO 2023
-- Remove player name as key to everything
-- replace @app.before_first_request
+- Remove player name as key to everything <br>
+X - replace @app.before_first_request <br>
+
+#### TODO 2024
+X - flask package versions were updated with minor fixes. Needed to modify some site-package source files to remove `from flask import Markup`
+- Add a page for creating teams. Allow referencing a player

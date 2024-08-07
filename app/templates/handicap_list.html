@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Handicaps</h1>
+{{ hdcp }}
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        function runOnLoad() {
+          var hdcp_table = document.getElementById("hdcp-list").createCaption();
+          front_table.innerHTML = "<b>Handicaps</b>";
+        }
+    </script>
+{% endblock %}
