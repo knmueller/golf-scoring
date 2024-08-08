@@ -90,3 +90,4 @@ X - replace @app.before_first_request <br>
 #### TODO 2024
 X - flask package versions were updated with minor fixes. Needed to modify some site-package source files to remove `from flask import Markup`
 - Add a page for creating teams. Allow referencing a player
+- add launch script somewhere to modify python site package files

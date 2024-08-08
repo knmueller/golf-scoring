@@ -42,7 +42,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next') if request.args.get('next') else '/'
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login_bootstrap.html', title='Sign In', form=form)
 
 
 @app.route('/logout')

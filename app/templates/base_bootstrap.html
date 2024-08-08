@@ -1,0 +1,116 @@
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap-Flask Demo Application</title>
+    <!--    <title>MotoCana Finals</title>-->
+    <!--    <link rel="stylesheet" href="/app/static/styles.css"/>-->
+    {{ bootstrap.load_css() }}
+    <style>
+        pre {
+            background: #ddd;
+            padding: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        footer {
+            margin: 20px;
+        }
+    </style>
+    <script type="text/javascript">// <![CDATA[
+            function getYear(){
+                return new Date().getFullYear();
+            }
+    // ]]>
+</script>
+</head>
+<body onload="runOnLoad()">
+<!--<div style="font-size: large;">Scoring:-->
+<!--    <a href="/" style="margin-right: 5px;">Home</a>-->
+<!--    <a href="/scoring">Results</a>-->
+<!--    <a href="/handicaps">Handicaps</a>-->
+<!--    {% if current_user.is_anonymous %}-->
+<!--    <a href="/login" style="float: right;">Login</a>-->
+<!--    <a href="/help" style="float: right; margin-right: 10px;">Help</a>-->
+<!--    {% else %}-->
+<!--    <a href="/logout" style="float: right; margin-right: 5px;">Logout ({{ current_user.username }})</a>-->
+<!--    <a href="/help" style="float: right; margin-right: 10px;">Help</a>-->
+<!--    {% if current_user.role == 'admin' %}-->
+<!--    <a href="/reset_pw" style="float: right; margin-right: 10px;">Reset Password</a>-->
+<!--    <a href="/reset_scores" style="float: right; margin-right: 10px;">Reset Scores</a>-->
+<!--    {% endif %}-->
+<!--    {% endif %}-->
+<!--</div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="#">Motocana Finals</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                {{ render_nav_item('root', 'Home') }}
+                {{ render_nav_item('calc', 'Results') }}
+                {{ render_nav_item('handicaps', 'Handicaps') }}
+
+                {% if current_user.is_anonymous %}
+                    {{ render_nav_item('login', 'Login', style="float: right;") }}
+                    {{ render_nav_item('help_page', 'Help', style="float: right;") }}
+                {% else %}
+                    {{ render_nav_item('logout', 'Logout {{ current_user.username }}') }}
+                    {{ render_nav_item('help_page', 'Help') }}
+                    {% if current_user.role == 'admin' %}
+                        {{ render_nav_item('reset_pw', 'Reset Password') }}
+                        {{ render_nav_item('reset_scores', 'Reset Scores') }}
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr>
+<!--{% with messages = get_flashed_messages() %}-->
+<!--{% if messages %}-->
+<!--<ul>-->
+<!--    {% for message in messages %}-->
+<!--    <li style="color: red;">{{ message }}</li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+<!--{% endif %}-->
+<!--{% endwith %}-->
+
+<main class="container">
+    {{ render_messages(container=False, dismissible=True, dismiss_animate=True) }}
+    {% block content %}{% endblock %}
+</main>
+
+<div id="loading"></div>
+
+<footer class="text-center">
+    {% block footer %}
+    <small> &copy;
+        <script>getYear()</script>
+<!--        ^ Not working-->
+        <a href="https://github.com/knmueller">Kyle Mueller</a>
+    </small>
+    {% endblock %}
+</footer>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">// <![CDATA[
+            function loading(){
+                $("#loading").show();
+                $("#submit-button").hide();
+            }
+    // ]]>
+</script>
+
+{% block extra_scripts %}{% endblock %}
+</html>

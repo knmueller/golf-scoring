@@ -14,6 +14,9 @@ $ sudo certbot certonly --nginx
 ```
 - then follow instructions for certbot utility
 
+##### Update for certbot
+https://medium.com/@geeekfa/how-to-secure-the-aws-ec2-instance-with-lets-encrypt-ssl-certificates-42f82c9d58b0
+
 
 ## Nginx config file for web app
 - copy the file `golfapp` to `/etc/nginx/sites-available`

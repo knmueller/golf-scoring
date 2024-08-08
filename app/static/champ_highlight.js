@@ -69,7 +69,7 @@ function highlight_champ_table() {
     }
 
     var tr = champ_table.tHead.children[0];
-    var th = document.createElement('th');
+    var th = document.createElement(f'th');
     th.className = "table__cell";
     th.innerHTML = "Match Score";
     tr.appendChild(th);

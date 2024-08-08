@@ -1,0 +1,18 @@
+{% extends "base_bootstrap.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    {{ render_form(form, button_style='success', button_size='block') }}
+    <br>
+    <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript">
+        function runOnLoad() {
+            console.log("initializing login");
+        }
+    </script>
+{% endblock %}
